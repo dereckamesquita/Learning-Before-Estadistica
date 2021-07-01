@@ -1,0 +1,35 @@
+---
+title: "Ejemplo final"
+author: "Dereck Amesquita"
+date: "1/5/2021"
+output: html_document
+---
+
+##Juntar color de ojos y pelo sin distinguir por sexo
+```{r}
+Hair=HairEyeColor
+Hair
+ftable(Hair)
+male <- Hair[, ,"Male"]
+#Nos da los hombres de todos los colores de ojos y cabellos
+female <- Hair[, ,"Female"]
+resu <- as.table(male+female)
+resu
+```
+## Cambiarle el nombre a las columnas
+```{r}
+dimnames(resu)
+dimnames(resu)=list(
+  Pelo=c("Negro","Marron","Pelirrojo","Rubio"),
+  Ojos=c("Cafe","Azul","Pardo","Verde"))
+resu
+
+```
+
+## Saber el numero de individuos
+
+```{r}
+sum(resu)
+```
+
+   
