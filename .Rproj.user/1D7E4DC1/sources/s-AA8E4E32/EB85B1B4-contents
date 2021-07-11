@@ -1,0 +1,80 @@
+---
+title: "Capitulo 2: Estadistica Descriptiva Aplicaciones"
+author: "Dereck Amesquita"
+date: "6/4/2021"
+output:
+  pdf_document: default
+  html_document: default
+---
+# Aplicaciones
+## La funcion summary
+Summary nos da los principales estadisticos descriptivos. Pero estos deben aplicarse a un vector numerico, es decir si lo aplicamos a un dataframe podremos estos todos los estadisticos.
+
+```{r Ejemplo de summary}
+cars=mtcars
+cars=cars[,1:5] #Cortamos el dataframe
+str(cars)
+summary(cars)
+subcars=subset(cars, cyl==4, c("disp","hp")) #Asi obtenemos determinadas columnas gracias a subset
+summary(subcars)
+
+```
+## La funcion by
+Con by podemos obtener el resultado de una poblacion aplicado a un subconjunto de datos
+```{r Ejemplo de by}
+by(cars, cars$cyl, FUN = summary)
+
+```
+
+## Diagramas de caja
+
+El diagrama de caja divide los datos en cuartiles, la base de la caja nos da el primer cuartil el techo de la cada nos da el tercer cuartil, los bigotes son los maximos y los minimos.
+
+```{r Ejemplo de boxplot}
+boxplot(cars$disp, main="Boxplot de Cars Disp",
+        col = "blue")
+boxplot(cars$disp~cars$cyl, main="Boxplot de Cars Disp",
+        col = "blue")
+boxplot(disp~cyl, data=cars) #En este caso no usamos $ ya que la data la ponemos aparte.
+```
+
+Podemos que ver que los de 6 cilindros tienen mayor mediana de disp en comparacion con la de 4 cilindros.
+
+
+La funcion stats nos devuelve los valores con los que se forman el boxplot
+
+ 
+## Ejericio de eficacia de insectisida
+Debemos analizar individualmente la eficacia de los insecticidas.
+```{r}
+insect=InsectSprays
+str(insect)
+by(insect$count, insect$spray, FUN=summary )
+#obtenemos los estadisticos dividos por spry.
+
+```
+Tenemos la sospecha que existe un rango alto. Por lo cual procedemos a calcular la desviacion estandar.
+
+```{r}
+aggregate(count~spray, data=insect, FUN=sd)
+#Agregamos count por tipo de spray < Esta es la forma de leer el codigo
+```
+Ahora podemos ver que los botes que tenian un maximo mas grande, tienen mayor desviacion.
+En el caso de A esta disperso en 4.71 en promedio de su media.
+
+```{r}
+boxplot(count~spray, data=insect, col="lightgreen")
+```
+Ahora podemos ver que A B F matan a mas insector pero tienen mayor diferencia en su cuartil 1 y 3. En diferencia C D E tienen menor diferencia en sus cuartil, tecnicamente son mas faciles de predecir.
+
+# Agrupamiento de datos
+No agrupar los datos puede limitarnos al momento de querer graficarlos. Por ejemplo cuando hablamos de la edad de una persona, nos referimos a una edad entera, decimos 40 años, desde que cumple 40 hasta que cumple 41, no decirmos 40.1 o 40.5.
+
+```{r}
+pesos = c(55.2,54.0,55.2,53.7,60.2,53.2,54.6,55.1,51.2,53.2,54.8,52.3,56.9,57.0,55.0,
+          53.5,50.9,55.1,53.6,61.2,59.5,50.3,52.7,60.0)
+barplot(pesos) #Divide demasiado los datos
+barplot(table(pesos))#Su frecuencia absoluta incluso es dificil de visualizar
+```
+Para dar solución a este problema es que podemos hacer una división por intervalos.
+

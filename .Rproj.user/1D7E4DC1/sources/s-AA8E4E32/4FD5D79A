@@ -3,24 +3,24 @@
     "path": "E:/Github/Learning-Before-Estadistica/Cap 2/Teoria2.Rmd",
     "project_path": "Cap 2/Teoria2.Rmd",
     "type": "r_markdown",
-    "hash": "406549788",
+    "hash": "983711350",
     "contents": "",
     "dirty": false,
     "created": 1625147317243.0,
     "source_on_save": false,
-    "relative_order": 3,
+    "relative_order": 2,
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "229,0",
-        "scrollLine": "216"
+        "cursorPosition": "0,0",
+        "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1625149171,
+    "lastKnownWriteTime": 1625622919,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1625149209697,
+    "last_content_update": 1625622920077,
     "read_only": false,
     "read_only_alternatives": []
 }

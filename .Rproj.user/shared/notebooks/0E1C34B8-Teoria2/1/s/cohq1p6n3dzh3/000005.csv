@@ -1,0 +1,5 @@
+"0","barplot(dados.df)
+"
+"2","Error in barplot.default(dados.df) : 
+  'height' must be a vector or a matrix
+"

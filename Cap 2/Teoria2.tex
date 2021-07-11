@@ -1,0 +1,981 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Capitulo 2 Introducción a la Estadistica Descriptiva},
+  pdfauthor={Dereck Amesquita},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Capitulo 2 Introducción a la Estadistica Descriptiva}
+\author{Dereck Amesquita}
+\date{6/4/2021}
+
+\begin{document}
+\maketitle
+
+\hypertarget{que-es-la-estadistica-descriptiva}{%
+\subsection{¿Que es la estadistica
+descriptiva?}\label{que-es-la-estadistica-descriptiva}}
+
+Es la rama de la estadistica que nos permite resumir un gran conjunto de
+datos. ``Deducir'' un elemento segun un gran conjunto de elementos
+similares. Con summary podremos obtener los principales datos
+descritivos de un dataframe
+
+\hypertarget{datos-cualitativos}{%
+\section{Datos Cualitativos}\label{datos-cualitativos}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{prueba}\OtherTok{=}\NormalTok{iris}
+\FunctionTok{summary}\NormalTok{(prueba)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
+##  Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
+##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+##  Median :5.800   Median :3.000   Median :4.350   Median :1.300  
+##  Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199  
+##  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+##  Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
+##        Species  
+##  setosa    :50  
+##  versicolor:50  
+##  virginica :50  
+##                 
+##                 
+## 
+\end{verbatim}
+
+\hypertarget{frecuencias}{%
+\subsection{Frecuencias}\label{frecuencias}}
+
+\hypertarget{frecuencia-absoluta}{%
+\subsubsection{Frecuencia absoluta}\label{frecuencia-absoluta}}
+
+Es el numero de datos que hay.
+
+\hypertarget{frecuencia-relativa}{%
+\subsubsection{Frecuencia relativa}\label{frecuencia-relativa}}
+
+Es el porcentaje de datos que hay \#\#\# Codigo en R Con sample obtener
+12 elementos del 40 al 55 donde los elementos se pueden repetir. En Y
+estamos generando 12 elementos si y no, los cuales estan meditos en un
+vector y se terminaran convirtiendo en un factor, debido a eso nos
+arroja que hay dos niveles. La funcion table nos ayuda a contar los
+elementos que existen.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{=} \FunctionTok{sample}\NormalTok{(}\DecValTok{40}\SpecialCharTok{:}\DecValTok{55}\NormalTok{, }\AttributeTok{size =} \DecValTok{12}\NormalTok{, }\AttributeTok{replace=}\ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{y }\OtherTok{=} \FunctionTok{factor}\NormalTok{(}\FunctionTok{sample}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"si"}\NormalTok{, }\StringTok{"no"}\NormalTok{), }\AttributeTok{size=}\DecValTok{12}\NormalTok{, }\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{))}
+\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 53 49 51 54 41 45 46 54 55 53 49 50
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] si no si no si no no si si si no si
+## Levels: no si
+\end{verbatim}
+
+Tambien podemos usar la funcion names que nos dara los niveles.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## x
+## 41 45 46 49 50 51 53 54 55 
+##  1  1  1  2  1  1  2  2  1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(y)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## y
+## no si 
+##  5  7
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(}\FunctionTok{table}\NormalTok{(x))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "41" "45" "46" "49" "50" "51" "53" "54" "55"
+\end{verbatim}
+
+Table tiene una desventaje puesto que solo aparecen los valores mayores
+a cero. Si nuestro datos tienen un nivel el cual no tiene ningun
+elemento, no se nos sera mostrado. Por lo cual podemos convertirlos a
+factores. Creamos nx que recogera a x como factores con niveles del
+40:55
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nx}\OtherTok{=}\FunctionTok{factor}\NormalTok{(x, }\AttributeTok{levels=}\DecValTok{40}\SpecialCharTok{:}\DecValTok{55}\NormalTok{)}
+\FunctionTok{table}\NormalTok{(nx)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## nx
+## 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 
+##  0  1  0  0  0  1  1  0  0  2  1  1  0  2  2  1
+\end{verbatim}
+
+Si quisieramos encontrar un valor dentro de la tabla podemos indicarle
+la posicion o podemos hacer que busque. Solo bastara con usar:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+ \FunctionTok{table}\NormalTok{(nx)[}\StringTok{"54"}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 54 
+##  2
+\end{verbatim}
+
+Para conocer la frecuencia relativa deberemos usar prop.table. Nos da el
+porcenteja
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{prop.table}\NormalTok{(}\FunctionTok{table}\NormalTok{(nx))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## nx
+##         40         41         42         43         44         45         46 
+## 0.00000000 0.08333333 0.00000000 0.00000000 0.00000000 0.08333333 0.08333333 
+##         47         48         49         50         51         52         53 
+## 0.00000000 0.00000000 0.16666667 0.08333333 0.08333333 0.00000000 0.16666667 
+##         54         55 
+## 0.16666667 0.08333333
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{prop.table}\NormalTok{(}\FunctionTok{table}\NormalTok{(y))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## y
+##        no        si 
+## 0.4166667 0.5833333
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Si queremos obtener el porcentaje, debemos multiplicar por 100}
+\FunctionTok{prop.table}\NormalTok{(}\FunctionTok{table}\NormalTok{(y))}\SpecialCharTok{*}\DecValTok{100}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## y
+##       no       si 
+## 41.66667 58.33333
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Tambien podemos obtener la frecuencia relativa con la division}
+\FunctionTok{table}\NormalTok{(y)}\SpecialCharTok{/}\FunctionTok{length}\NormalTok{(y)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## y
+##        no        si 
+## 0.4166667 0.5833333
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(x)}\SpecialCharTok{==}\DecValTok{2} 
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## x
+##    41    45    46    49    50    51    53    54    55 
+## FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE  TRUE FALSE
+\end{verbatim}
+
+\hypertarget{frecuencias-bidimensionales}{%
+\subsection{Frecuencias
+Bidimensionales}\label{frecuencias-bidimensionales}}
+
+Construiremos un nuevo conjunto de datos. LO que haremos sera cruzar la
+informacion de Y. Con table haremos que cada ``se'' pueda vincularse con
+el valor en el orden correspondiente a ``y''
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{se}\OtherTok{=}\FunctionTok{sample}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"H"}\NormalTok{,}\StringTok{"M"}\NormalTok{), }\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{size=}\FunctionTok{length}\NormalTok{(y))}
+\FunctionTok{table}\NormalTok{(se,y)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    y
+## se  no si
+##   H  2  2
+##   M  3  5
+\end{verbatim}
+
+Podemos decir que 4 hombres dijeron que no, 4 mujeres dijeron que no.
+
+\hypertarget{frecuencia-relativa-global}{%
+\subsubsection{Frecuencia relativa
+global}\label{frecuencia-relativa-global}}
+
+Se divide cada elemento entre el total. Ejemplo 4/12 para el elemento
+(1,1) o 1/1 para el elemento (2,2)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{prop.table}\NormalTok{(}\FunctionTok{table}\NormalTok{(se,y))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    y
+## se         no        si
+##   H 0.1666667 0.1666667
+##   M 0.2500000 0.4166667
+\end{verbatim}
+
+El 33\% del total son hombres que dijeron que no. el 25\% son hombres
+que dijeron que si.
+
+\hypertarget{frecuencia-relativa-marginal}{%
+\subsubsection{Frecuencia relativa
+marginal}\label{frecuencia-relativa-marginal}}
+
+Con margin=1 obtenemos la FRM de las filas y con =2 obtenemo la FRM de
+las columnas
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{prop.table}\NormalTok{(}\FunctionTok{table}\NormalTok{(se,y), }\AttributeTok{margin=}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    y
+## se     no    si
+##   H 0.500 0.500
+##   M 0.375 0.625
+\end{verbatim}
+
+Analizaremos por filas, es decir del total de hombres el 0.66 respondio
+no, y el 0.33 respondio que si.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{prop.table}\NormalTok{(}\FunctionTok{table}\NormalTok{(se,y), }\AttributeTok{margin=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    y
+## se         no        si
+##   H 0.4000000 0.2857143
+##   M 0.6000000 0.7142857
+\end{verbatim}
+
+Analizaremos por columnas, es decir de los que dijeron si, el 75\%
+fueron hombres y el 25\% mujeres.
+
+\#\#Crostable
+
+Pertenece al paquete gmodels. Crosstable nos permitira generar de forma
+automatica las distintas frecuencias.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(gmodels)}
+\FunctionTok{CrossTable}\NormalTok{(se,y,}\AttributeTok{prop.chisq =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  
+##    Cell Contents
+## |-------------------------|
+## |                       N |
+## |           N / Row Total |
+## |           N / Col Total |
+## |         N / Table Total |
+## |-------------------------|
+## 
+##  
+## Total Observations in Table:  12 
+## 
+##  
+##              | y 
+##           se |        no |        si | Row Total | 
+## -------------|-----------|-----------|-----------|
+##            H |         2 |         2 |         4 | 
+##              |     0.500 |     0.500 |     0.333 | 
+##              |     0.400 |     0.286 |           | 
+##              |     0.167 |     0.167 |           | 
+## -------------|-----------|-----------|-----------|
+##            M |         3 |         5 |         8 | 
+##              |     0.375 |     0.625 |     0.667 | 
+##              |     0.600 |     0.714 |           | 
+##              |     0.250 |     0.417 |           | 
+## -------------|-----------|-----------|-----------|
+## Column Total |         5 |         7 |        12 | 
+##              |     0.417 |     0.583 |           | 
+## -------------|-----------|-----------|-----------|
+## 
+## 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{fix}\NormalTok{(se)}
+\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] si no si no si no no si si si no si
+## Levels: no si
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rev}\NormalTok{(y)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] si no si si si no no si no si no si
+## Levels: no si
+\end{verbatim}
+
+\hypertarget{datos-multidimensionales}{%
+\subsection{Datos multidimensionales}\label{datos-multidimensionales}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#creamos los vectores}
+\NormalTok{per}\OtherTok{=} \FunctionTok{sample}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"S"}\NormalTok{,}\StringTok{"N"}\NormalTok{), }\AttributeTok{size=}\DecValTok{100}\NormalTok{, }\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{sex}\OtherTok{=} \FunctionTok{sample}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"H"}\NormalTok{,}\StringTok{"M"}\NormalTok{), }\AttributeTok{size=}\DecValTok{100}\NormalTok{, }\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{lug}\OtherTok{=} \FunctionTok{sample}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Peru"}\NormalTok{,}\StringTok{"Chile"}\NormalTok{,}\StringTok{"Argentina"}\NormalTok{,}\StringTok{"Uruguay"}\NormalTok{,}\StringTok{"Brasil"}\NormalTok{), }\AttributeTok{size=}\DecValTok{100}\NormalTok{, }\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{)}
+\CommentTok{\#tablas}
+\FunctionTok{table}\NormalTok{(sex,per,lug)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## , , lug = Argentina
+## 
+##    per
+## sex N S
+##   H 7 2
+##   M 5 7
+## 
+## , , lug = Brasil
+## 
+##    per
+## sex N S
+##   H 2 5
+##   M 3 6
+## 
+## , , lug = Chile
+## 
+##    per
+## sex N S
+##   H 2 6
+##   M 8 8
+## 
+## , , lug = Peru
+## 
+##    per
+## sex N S
+##   H 5 1
+##   M 5 6
+## 
+## , , lug = Uruguay
+## 
+##    per
+## sex N S
+##   H 5 5
+##   M 3 9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ftable}\NormalTok{(sex,per,lug)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         lug Argentina Brasil Chile Peru Uruguay
+## sex per                                        
+## H   N               7      2     2    5       5
+##     S               2      5     6    1       5
+## M   N               5      3     8    5       3
+##     S               7      6     8    6       9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ftable}\NormalTok{(sex,per,lug, }\AttributeTok{col.vars=}\FunctionTok{c}\NormalTok{(}\StringTok{"sex"}\NormalTok{,}\StringTok{"per"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           sex H   M  
+##           per N S N S
+## lug                  
+## Argentina     7 2 5 7
+## Brasil        2 5 3 6
+## Chile         2 6 8 8
+## Peru          5 1 5 6
+## Uruguay       5 5 3 9
+\end{verbatim}
+
+\hypertarget{filtrado-de-tablas}{%
+\subsubsection{Filtrado de tablas}\label{filtrado-de-tablas}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(sex, per, lug)[}\StringTok{"M"}\NormalTok{,}\StringTok{"S"}\NormalTok{,}\StringTok{"Peru"}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Esto nos da todas las mujeres que dijeron que si y son de Peru}
+
+\FunctionTok{table}\NormalTok{(sex, per, lug)[}\StringTok{"M"}\NormalTok{,,}\StringTok{"Peru"}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## N S 
+## 5 6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Esto nos da todas las mujeres que son de Peru.}
+
+\FunctionTok{table}\NormalTok{(sex, per, lug)[,,}\StringTok{"Peru"}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    per
+## sex N S
+##   H 5 1
+##   M 5 6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Esto nos da todos lo de Peru}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{ejemplo-1}{%
+\section{Ejemplo 1}\label{ejemplo-1}}
+
+La siguiente base de datos ya funciona como una tabla de frecuencias, se
+denominan datos agregados. Es como si se hubiera utilizado un
+table(Eye,Hair,Sex)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{HairEyeColor}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## , , Sex = Male
+## 
+##        Eye
+## Hair    Brown Blue Hazel Green
+##   Black    32   11    10     3
+##   Brown    53   50    25    15
+##   Red      10   10     7     7
+##   Blond     3   30     5     8
+## 
+## , , Sex = Female
+## 
+##        Eye
+## Hair    Brown Blue Hazel Green
+##   Black    36    9     5     2
+##   Brown    66   34    29    14
+##   Red      16    7     7     7
+##   Blond     4   64     5     8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dfx}\OtherTok{=}\NormalTok{HairEyeColor}
+\FunctionTok{sum}\NormalTok{(dfx)}\OtherTok{{-}\textgreater{}}\NormalTok{total}
+\end{Highlighting}
+\end{Shaded}
+
+El total de individuos son 592.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{prop.table}\NormalTok{(dfx, }\AttributeTok{margin=}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## , , Sex = Male
+## 
+##        Eye
+## Hair          Brown        Blue       Hazel       Green
+##   Black 0.114695341 0.039426523 0.035842294 0.010752688
+##   Brown 0.189964158 0.179211470 0.089605735 0.053763441
+##   Red   0.035842294 0.035842294 0.025089606 0.025089606
+##   Blond 0.010752688 0.107526882 0.017921147 0.028673835
+## 
+## , , Sex = Female
+## 
+##        Eye
+## Hair          Brown        Blue       Hazel       Green
+##   Black 0.115015974 0.028753994 0.015974441 0.006389776
+##   Brown 0.210862620 0.108626198 0.092651757 0.044728435
+##   Red   0.051118211 0.022364217 0.022364217 0.022364217
+##   Blond 0.012779553 0.204472843 0.015974441 0.025559105
+\end{verbatim}
+
+El 11.46\% de todos los hombres tiene pelo negro y ojos cafes El 18.99\%
+de todos los hombres tiene pelo cafe y ojos cafes.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{prop.table}\NormalTok{(dfx, }\AttributeTok{margin=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## , , Sex = Male
+## 
+##        Eye
+## Hair        Brown      Blue     Hazel     Green
+##   Black 0.4705882 0.5500000 0.6666667 0.6000000
+##   Brown 0.4453782 0.5952381 0.4629630 0.5172414
+##   Red   0.3846154 0.5882353 0.5000000 0.5000000
+##   Blond 0.4285714 0.3191489 0.5000000 0.5000000
+## 
+## , , Sex = Female
+## 
+##        Eye
+## Hair        Brown      Blue     Hazel     Green
+##   Black 0.5294118 0.4500000 0.3333333 0.4000000
+##   Brown 0.5546218 0.4047619 0.5370370 0.4827586
+##   Red   0.6153846 0.4117647 0.5000000 0.5000000
+##   Blond 0.5714286 0.6808511 0.5000000 0.5000000
+\end{verbatim}
+
+De quieness tienen el cabello negro y los ojos cafes el 47.25\% son
+hombres y el 52.94\% son mujeres. De quienes tienen cabello cafe y ojos
+hazel el 46.29\% son hombres y el 53.70\% son mujeres.
+
+\hypertarget{cambiar-orden}{%
+\subsection{Cambiar orden}\label{cambiar-orden}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#modificar el orden de datos agregados}
+\NormalTok{dfxn}\OtherTok{=}\FunctionTok{aperm}\NormalTok{(dfx, }\AttributeTok{perm=}\FunctionTok{c}\NormalTok{(}\StringTok{"Sex"}\NormalTok{, }\StringTok{"Hair"}\NormalTok{,}\StringTok{"Eye"}\NormalTok{))}
+\CommentTok{\#Mostrar tabla de datos agregados}
+\FunctionTok{library}\NormalTok{(}\StringTok{"kableExtra"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'kableExtra' was built under R version 4.0.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{kable}\NormalTok{(dfxn)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{l|l|l|r}
+\hline
+Sex & Hair & Eye & Freq\\
+\hline
+Male & Black & Brown & 32\\
+\hline
+Female & Black & Brown & 36\\
+\hline
+Male & Brown & Brown & 53\\
+\hline
+Female & Brown & Brown & 66\\
+\hline
+Male & Red & Brown & 10\\
+\hline
+Female & Red & Brown & 16\\
+\hline
+Male & Blond & Brown & 3\\
+\hline
+Female & Blond & Brown & 4\\
+\hline
+Male & Black & Blue & 11\\
+\hline
+Female & Black & Blue & 9\\
+\hline
+Male & Brown & Blue & 50\\
+\hline
+Female & Brown & Blue & 34\\
+\hline
+Male & Red & Blue & 10\\
+\hline
+Female & Red & Blue & 7\\
+\hline
+Male & Blond & Blue & 30\\
+\hline
+Female & Blond & Blue & 64\\
+\hline
+Male & Black & Hazel & 10\\
+\hline
+Female & Black & Hazel & 5\\
+\hline
+Male & Brown & Hazel & 25\\
+\hline
+Female & Brown & Hazel & 29\\
+\hline
+Male & Red & Hazel & 7\\
+\hline
+Female & Red & Hazel & 7\\
+\hline
+Male & Blond & Hazel & 5\\
+\hline
+Female & Blond & Hazel & 5\\
+\hline
+Male & Black & Green & 3\\
+\hline
+Female & Black & Green & 2\\
+\hline
+Male & Brown & Green & 15\\
+\hline
+Female & Brown & Green & 14\\
+\hline
+Male & Red & Green & 7\\
+\hline
+Female & Red & Green & 7\\
+\hline
+Male & Blond & Green & 8\\
+\hline
+Female & Blond & Green & 8\\
+\hline
+\end{tabular}
+
+\hypertarget{ejemplo-2}{%
+\section{Ejemplo 2}\label{ejemplo-2}}
+
+\hypertarget{arreglos-importantes-en-r}{%
+\subsection{Arreglos importantes en R}\label{arreglos-importantes-en-r}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data}\OtherTok{=}\StringTok{"https://raw.githubusercontent.com/dereckamesquita/Learning{-}Before{-}Estadistica/main/datasets/EnergyDrink.csv"}
+\NormalTok{energy}\OtherTok{=}\FunctionTok{read.csv}\NormalTok{(data, }\AttributeTok{sep=}\StringTok{";"}\NormalTok{,}\AttributeTok{header =} \ConstantTok{TRUE}\NormalTok{)}
+\CommentTok{\#volver una sola columna en factor}
+\NormalTok{energy}\SpecialCharTok{$}\NormalTok{estudio}\OtherTok{=}\FunctionTok{as.factor}\NormalTok{(energy}\SpecialCharTok{$}\NormalTok{estudio)}
+\CommentTok{\#Volver toda un data frame en factor}
+\NormalTok{energy[]}\OtherTok{=}\FunctionTok{lapply}\NormalTok{(energy,factor)}
+\CommentTok{\#Devolver a numero}
+\NormalTok{energy}\SpecialCharTok{$}\NormalTok{X}\OtherTok{=}\FunctionTok{as.numeric}\NormalTok{(energy}\SpecialCharTok{$}\NormalTok{X)}
+\FunctionTok{str}\NormalTok{(energy)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    122 obs. of  4 variables:
+##  $ X      : num  1 2 3 4 5 6 7 8 9 10 ...
+##  $ estudio: Factor w/ 4 levels "Industriales",..: 2 3 1 2 1 3 2 1 2 2 ...
+##  $ bebe   : Factor w/ 2 levels "No","Si": 1 1 2 2 1 1 2 1 1 1 ...
+##  $ sexo   : Factor w/ 2 levels "Hombre","Mujer": 2 1 2 1 2 2 1 1 1 1 ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(energy)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   X      estudio bebe   sexo
+## 1 1  Informatica   No  Mujer
+## 2 2        Mates   No Hombre
+## 3 3 Industriales   Si  Mujer
+## 4 4  Informatica   Si Hombre
+## 5 5 Industriales   No  Mujer
+## 6 6        Mates   No  Mujer
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(energy)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        X                  estudio   bebe        sexo   
+##  Min.   :  1.00   Industriales:37   No:97   Hombre:83  
+##  1st Qu.: 31.25   Informatica :53   Si:25   Mujer :39  
+##  Median : 61.50   Mates       :16                      
+##  Mean   : 61.50   Telematica  :16                      
+##  3rd Qu.: 91.75                                        
+##  Max.   :122.00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{colnames}\NormalTok{(energy)[}\FunctionTok{colnames}\NormalTok{(energy)}\SpecialCharTok{==}\StringTok{"X"}\NormalTok{] }\OtherTok{=} \StringTok{"indice"}
+\CommentTok{\#eliminar la columna indice}
+\NormalTok{energy}\OtherTok{=}\NormalTok{energy[,}\DecValTok{2}\SpecialCharTok{:}\DecValTok{4}\NormalTok{]}
+\FunctionTok{summary}\NormalTok{(energy)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          estudio   bebe        sexo   
+##  Industriales:37   No:97   Hombre:83  
+##  Informatica :53   Si:25   Mujer :39  
+##  Mates       :16                      
+##  Telematica  :16
+\end{verbatim}
+
+Margin igual 2 especifica que se trabaje con las columnas. Con apply
+aplicaremos la funcion a todas las columnas
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{apply}\NormalTok{(energy, }\AttributeTok{MARGIN =} \DecValTok{2}\NormalTok{, }\AttributeTok{FUN =}\NormalTok{ table)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $estudio
+## 
+## Industriales  Informatica        Mates   Telematica 
+##           37           53           16           16 
+## 
+## $bebe
+## 
+## No Si 
+## 97 25 
+## 
+## $sexo
+## 
+## Hombre  Mujer 
+##     83     39
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Si solo queremos una columna}
+\FunctionTok{apply}\NormalTok{(energy, }\AttributeTok{MARGIN =} \DecValTok{2}\NormalTok{, }\AttributeTok{FUN =}\NormalTok{ table)}\SpecialCharTok{$}\NormalTok{sexo}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Hombre  Mujer 
+##     83     39
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#El anterior es igual a }
+\FunctionTok{table}\NormalTok{(energy}\SpecialCharTok{$}\NormalTok{sexo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Hombre  Mujer 
+##     83     39
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(energy)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## , , sexo = Hombre
+## 
+##               bebe
+## estudio        No Si
+##   Industriales 19  6
+##   Informatica  30  7
+##   Mates         8  1
+##   Telematica   10  2
+## 
+## , , sexo = Mujer
+## 
+##               bebe
+## estudio        No Si
+##   Industriales 10  2
+##   Informatica  11  5
+##   Mates         6  1
+##   Telematica    3  1
+\end{verbatim}
+
+\hypertarget{datos-ordinales}{%
+\section{Datos Ordinales}\label{datos-ordinales}}
+
+Son datos que presentan un orden natural. Por ejemplo las escalas.
+
+\end{document}
