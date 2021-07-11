@@ -1,0 +1,39 @@
+---
+title: "Capitulo 2: Introduccion a la Estadistica Inferencial"
+author: "Dereck Amesquita"
+date: "6/4/2021"
+output:
+  pdf_document: default
+  html_document: default
+---
+# La regresión Lineal
+Podemos medir el efecto lineal que tiene una variable sobre otra con la regresion lineal
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
