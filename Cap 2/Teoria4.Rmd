@@ -3,19 +3,426 @@ title: "Capitulo 2: Introduccion a la Estadistica Inferencial"
 author: "Dereck Amesquita"
 date: "6/4/2021"
 output:
-  pdf_document: default
+  pdf_document: 
+    keep_tex: yes
   html_document: default
 ---
+
 # La regresión Lineal
-Podemos medir el efecto lineal que tiene una variable sobre otra con la regresion lineal
+Podemos medir el efecto lineal que tiene una variable sobre otra con la regresión lineal.
+$$y = a+bx$$
+En el capitulo de estadística inferencial se abordaran los mínimos cuadrados ordinarios que nos ayudaran a obtener el valor de b.
+```{r Ejemplo }
+data="https://raw.githubusercontent.com/dereckamesquita/Learning-Before-Estadistica/main/datasets/bodyfat.txt"
+datos=read.table(data, header = TRUE)
+datosn=datos[,c(2,4)]
+names(datosn)=c("Grasa","Peso")
+str(datosn)
+# Regresion
+#lm(y~x) #Esto se lee como formula es decir: Y de X o y=ƒ(X) 
+#Alt+159 = ƒ
+regre1=lm(Peso~Grasa, data=datosn)
+lm(datosn$Peso~datosn$Grasa)
+```
+## Graficando la regresion lineal
+```{r Grafico}
+plot(datosn)
+abline(regre1, col="blue")
+```
+
+## El coeficiente de determinacion R2
+```{r Calculo}
+summary(regre1) # Nos arroja la inform acion mas importante de nuestra regresion
+summary(regre1)$r.squared #Nos arroja solo el R2
+
+```
+## Escalas Logaritmicas
+```{r Graficos en dos escalas}
+dep=c(1.2,3.6,12,36)
+ind=c(20,35,61,82)
+#Graficos
+par(mfrow = c(1, 2))#Juntar dos plots
+plot(ind,dep, main = "Escala lineal")
+plot(ind,dep, log="y", main = "Escala Logaritmica")
+
+```
+
+```{r Regresion exponencial}
+regrelognivel=lm(log10(dep)~ind)
+summary(regrelognivel)
+#Grafico
+plot(ind,dep,main="Curva de regresion")
+curve(1.054^x*0.468, add=TRUE, col="lightblue")
+```
+
+## Regresiones potenciales
+```{r}
+tiempo = 1:10
+gramos = c(0.097,0.709,2.698,6.928,15.242,29.944,52.902,83.903,120.612,161.711)
+d.f = data.frame(tiempo,gramos)
+# Graficas
+par(mfrow= c(1,3))
+plot(d.f)
+plot(d.f, log="y")
+plot(d.f, log="xy")
+par(mfrow= c(1,1))
+
+```
+
+# Las distribuciones de probabilidad
+
+## Los experimentos aleatorios
+-Un experimento es un acto en el cual no conoces el resultado.
+-Un suceso elemental son los posibles resultados. Cara o cruz.
+-El espacio muestral es el conjunto de todos los sucesos elementales.
+
+## Variable Aleatoria
+Es una variable que toma distintos valores.
+El dominio de la variable aleatoria son todos los números que puede tomar.
+$p(X=a) = p(\{\omega\in\Omega \ |\  X(\omega) = a\})$
+
+Se lee: La probabilidad de que la variable aleatoria tome el valor a, es la probabilidad de que el suceso (w) que pertenece al espacio muestral, tal que X de w sea igual a a.
+
+- $p(a< X< b) = p(\{\omega\in\Omega \ |\  a< X(\omega) < b\})$
+
+- $p(X\in A) = p(\{\omega\in\Omega \ |\  X(\omega)\in A\})$
+
+## La función de distribución
+
+Funcion de distribucion de la v.a. X. Es una funcion:
+$$F:\mathbb{R}\longrightarrow [0,1]$$
+
+dado por:
+$$F(x)=p(X\le x)$$
+
+Que se lee como el valor acumulado $F(x)$ es igual a la suma de todas las probabilidades anteriores a x $p(X\le x)$
+
+### Ejemplo tirar un dado de 6 caras
+Queremos saber la probabilidad de sacar 5. Es decir $F(5)$ igual a la probabilidad de que la v.a. tome el valor de 5, $p(5\le x)$
+
+# Variable Aleatoria Discreta
+
+-Una v.a es discreta cuando $X:\Omega\longrightarrow\mathbb{R}$ y $D_x$ es finito, es decir el dominio de x es un subconjunto de los naturales. La v.a. solo toma los valores de su dominio. Ejemplo las caras de un dado, ya que este es un número finito.
+
+-Funcion de densidad es la funcion $f:\mathbb{R}\longrightarrow[0,1]$, definido por $$f(x)=p(X=x)$$
+
+Se concluye que $f(x)=0$ si $x\not\in D_x$. A lo cual llegamos que la funcion de densidad es:
+$f: D_x\longrightarrow[0,1]$
+
+### Esperanza
+Dado $f: D_x\longrightarrow[0,1]$, entonces podemos decir que la esperanza es la multiplicacion de cada elemento $x$ dentro de $D_x$ por su probabilidad.
+$$E(X)=\sum_{x\in D_x}x \cdot f(x) $$
+Esta version es muy parecida a la media vista como la sumatoria de la frecuencia relativa por cada valor. Esto se vio en un documento pasado.
+Tambien se ve como:
+
+$$E(g(X))=\sum_{x\in D_x}g(x) \cdot f(x) $$
+Podemos calcular la esperanza de $x^2$
+$$E(X^2)=\sum_{x\in D_x}x^2 \cdot f(x) $$
+
+### Varianza
+Como vimos en capitulos pasados, la varianza es la diferencia de la media de X al cuadrado menos el cuadrado de la media de x.En terminos se esperanza es similar, se puede demostrar desde:
+$$Var(X)=E((X-E(X))^2)$$
+Se entiende como la diferencia de X respecto a su valor esperado elevado al cuadrado.
+Se resuelve como:
+$$=E(X^2-2XE(X)+E(X)^2)$$
+$$=E(X^2)-E(2XE(X))+E(E(X)^2)$$
+El valor esperado en $E(E(X)^2)$ seguira siendo $E(X)^2$
+$$=E(X^2)-2E(X)E(X)+E(X)^2$$
+$$=E(X^2)-2[E(X)]^2+E(X)^2$$
+$$Var(X)=E(X^2)-[E(X)]^2$$
+Tambien lo podemos entender como:
+Si $X$ es una v.a. discreta y $g:D_X\longrightarrow \mathbb{R}$ una función, $$Var(g(X))=E((g(X)-E(g(X)))^2)=E(g(X)^2)-[E(g(X))]^2$$
+En este caso $g$ es una funcion cualquiera con un dominio de dicha variable aleatoria discreta.
+
+### Desviacion tipica
+Se entiende como:
+$$\sigma(X)=\sqrt{Var(X)}$$
+Tambien se puede entender como:
+$$\sigma(g(X))=\sqrt{Var(g(X))}$$
+
+# Distribuciones de probabilidad aplicadas
+Cualquier variable aleatoria (va) se puede trabajar con las funciones dva, pva, qva y rva.
+
+-**dva** nos dara la función de densidad o probabilidad de la variable. Su remplazo en python es pmf o pdf.
+
+-**pva** nos dara la funcion de distribucion $F(x)$ de la variable aleatoria. Su remplazo en python es cdf.
+
+-**qva** nos dara el cuartil de la variable. El valor minimo donde $F(x)\geq p$. Su remplazo en python es ppf.
+
+-**rva** genera obserbacion con la distribucion de la variable aleatoria. Su remplazo en python es rvs.
+
+En R usamos Rlab y en python usamos scipy.stats
+
+## Distribucion de Bernoulli
+Si X mide el numero de casos a favor o de exito, si se realiza un experimento (1 en caso de exito y 0 en caso de fracaso). Si X sigue una distribucion de Bernoulli con parametro p(probabilidad de exito) utilizaremos:
+$$X\sim \text{Be}(p) $$
+
+### Elementos importantes
+
+Donde la **probabilidad** de fracaso es $q=1-p$.
+
+El **dominio** de $X$ es $X(\Omega)=\{0,1\}$. Tambien se puede entender como $D_X = \{0,1\}$. Donde el dominio solo abarca 0 y 1, entendido como fracaso y exito.
+
+La **función de probabilidad** esta dada por:
+$$f(k)=p^k(1-p)^{1-k}= \left\{
+\begin{array}{rl}
+     p & \text{si } k=1 
+  \\ 1-p & \text{si } k=0
+  \\ 0 & \text{en cualquier otro caso}
+\end{array}
+\right.$$
+
+-Donde si $k=1$ entonces $f(k)=p^1(1-p)^{1-1}=f(k)=p^1(1-p)^{0}\longrightarrow f(k)=p$
+
+-Donde si $k=0$ entonces $f(k)=p^0(1-p)^{1-0}=f(k)=p^0(1-p)^{1}=1-p\longrightarrow f(k)=q$
+
+-Donde si toma otro valor sera cero, puesto que se trata de una distribución discreta.
+
+
+La **función de distribución acumulada** esta dada por:
+
+$$F(k) = \left\{
+\begin{array}{rl}
+     0 & \text{si } k<0 
+  \\ 1-p & \text{si } 0\le k<1
+  \\ 1 & \text{si } k\ge 1
+\end{array}
+\right.$$
+Para los calculos de la media procedemos a remplazar $k$ por $x$ 
+La media de la distribucion de Bernoulli es:
+$$E(X)=0*P(X=0)+1*P(X=1) \longrightarrow E(X)=P(X=1)=p$$
+La varianza de la distribucion de Benoulli es:
+$$Var(X)=E(X^2)-E(X)^2$$
+$$E(X^2)=\sum_{x=0}^1 x^2p^xq^{1-x}$$
+$$E(X^2)=0^2p^0q^{1-0}+1^2p^1q^{1-1}$$
+$$E(X^2)=p^1q^{1-1}=p$$
+
+Por lo tanto podemos retomar:
+$$Var(X)=p-p^2=p(1-p)$$
+
+### Corriendo la distribucion de Bernoulli
+
+**Funcion de densidad o de probabilidad**
+$$f(x)=p^x(1-p)^{1-x}, k={0,1}$$
+Suponiendo que tenemos una moneda trucada con probabilidad de exito de 0.7. Es decir $X\sim  \text{Be}\ (p=0.7)$
+
+```{r Primeros experimentos}
+library(Rlab)
+dbern(0,0.7) #dbern trabaja la distribucion de Bernoulli
+dbern(1,0.7)
+pbern(0,0.7)
+pbern(1,0.7)
+qbern(0.5,0.7)
+qbern(0.25,0.7)
+rbern(100,0.7)->data
+hist(data)
+```
+Nos arroja que la probabilidad de sacar 0 es de 0.3 y la de sacar 1 es de 0.7
+
+
+## Distribucion Binomial
+
+Si $X$ es una V.A. la cual mide el numero de exitos donde se realizan $n$ ensayos de Bernoulli independientes entre si, entonces $X$ se distribuye de la siguiente forma. $$X\sim \text{B}(n,p)$$
+
+El dominio sera $D_X = \{0,1,2,\dots,n\}$
+La funcion de densidad estara dada por:
+$$f(k) = {n\choose k}p^k(1-p)^{n-k} $$
+- La **función de distribución** (probabilidad acumulada) vendrá dada por $$F(x) = \left\{
+\begin{array}{cl}
+     0 & \text{si } x<0 
+  \\ \sum_{k=0}^xf(k) & \text{si } 0\le x<n
+  \\ 1 & \text{si } x\ge n
+\end{array}
+\right.$$
+
+- **Esperanza** $E(X) = np$
+- **Varianza** $Var(X) = npq$
+
+```{r Ejemplos de distribucion binomial }
+
+plot(0:50,dbinom(0:50,50,0.5),col = "purple", xlab = "", ylab = "", main = "Función de probabilidad de una B(50,0.5)")
+plot(0:50, pbinom(0:50,50,0.5),col = "purple", xlab = "", ylab = "", main = "Función de distribución de una B(50,0.5)", ylim = c(0,1))
+
+```
+
+### Ejemplo
+Sea $X = B(30, 0.6)$
+
+```{r}
+n<-30
+p<-0.6
+x<-0:30
+#FUncion de densidad
+ejemplobinomial<-dbinom(x, n, p)
+plot(ejemplobinomial)
+media_ejemplobinomial<-n*p
+var_ejemplobinomial<-n*p*(1-p)
+media_ejemplobinomial
+var_ejemplobinomial
+#Funcion de distribucion
+ejemplobinomial_acu<-pbinom(x, n, p)
+plot(ejemplobinomial_acu)
+qbinom(0.5,n,p)
+hist(rbinom(100,n,p)) #Parece tener sesgo cuando hacemos 100 repeticiones
+```
+El 50% esta debajo de 18.
+
+
+## Distribucion Geometrica
+
+Si X es una variable que se encarga de medir el "numero de repeticiones independientes del experimento hasta conseguir exito" se distribuira de la siguiente forma. 
+$$X\sim \text{Ge}(p)$$
+- El **dominio** de $X$ será $D_X= \{0,1,2,\dots\}$ o bien $D_X = \{1,2,\dots\}$ en función de si empieza en 0 o en 1, respectivamente
+
+- La **función de probabilidad o densidad** vendrá dada por $$f(k) = (1-p)^{k}p \qquad\text{ si empieza en 0}$$
+
+$$f(k) = (1-p)^{k-1}p \qquad\text{ si empieza en 1}$$
+- La **función de distribución** vendrá dada por $$F(x) = \left\{
+\begin{array}{cl}
+     0 & \text{si } x<0 
+  \\ 1-(1-p)^{k+1} & \text{si } k\le x<k+1,\ k\in\mathbb{N}
+\end{array}
+\right.$$ 
+
+- **Esperanza** $E(X) = \frac{1-p}{p}$ si empieza en 0 y E$(X) = \frac{1}{p}$ si empieza en 1
+- **Varianza** $Var(X) = \frac{1-p}{p^2}$
+- <l class = "prop">Propiedad de la falta de memoria.</l> Si $X$ es una v.a. $\text{Ge}(p)$, entonces, $$p\{X\ge m+n:\ X\ge n\} = p\{X\ge m\}\ \forall m,n=0,1,\dots$$
+
+```{r Distribucion Geometrica}
+par(mfrow = c(1,2))
+plot(0:20, dgeom(0:20,0.5),col = "purple", xlab = "", ylab = "", main = "Función de probabilidad de una Ge(0.5)")
+plot(0:20, pgeom(0:20,0.5),col = "purple", xlab = "", ylab = "", main = "Función de distribución de una Ge(0.5)", ylim = c(0,1))
+par(mfrow= c(1,1))
+```
+ completar
+ 
+## Distribucion de Poisson
+ La V.A. $X$ se encarga de medir el numero de eventos en determinado tiempo y sigue la distribucion:
+ $$X\sim \text{Po}(\lambda)$$
+ Donde $\lambda$ es el numero de veces que ocurre el evento en el momento especificado.
+- El **dominio** de $X$ será $D_X = \{0,1,2,\dots\}$
+
+- La **función de probabilidad** vendrá dada por $$f(k) = \frac{e^{-\lambda}\lambda^k}{k!}$$
+- La **función de distribución** vendrá dada por $$F(x) = \left\{
+\begin{array}{cl}
+     0 & \text{si } x<0 
+  \\ \sum_{k=0}^xf(k) & \text{si } 0\le x<n
+  \\ 1 & \text{si } x\ge n
+\end{array}
+\right.$$ 
+
+- **Esperanza** $E(X) = \lambda$
+- **Varianza** $Var(X) = \lambda$
+
+
+```{r Distribucion de Poisson}
+plot(0:20, dpois(0:20,2),col = "purple", xlab = "", ylab = "", main = "Función de probabilidad de una Po(2)")
+
+plot(0:20, ppois(0:20,2),col = "purple", xlab = "", ylab = "", main = "Función de distribución de una Po(2)", ylim = c(0,1))
+
+```
+Ejemplo de $\lambda=5$
+```{r Ejemplo de Poisson}
+l=5
+x<-0:30
+distr_poisson <- dpois(x,l)
+distr_poisson
+plot(distr_poisson)
+hist(distr_poisson)
+```
+
+# Variable Aleatoria Continua
+
+Una V.A. es continua cuando hay numeros continuos en $[0,1]$
+
+**Función de densidad**
+
+<l class = "definition">Función de densidad.</l> Función $f:\mathbb{R}\longrightarrow\mathbb{R}$ que satisface 
+
+- $f(x)\ge 0\ \forall x\in\mathbb{R}$
+- $\int_{-\infty}^{+\infty}f(t)dt=1$
+
+Una función de densidad puede tener puntos de discontinuidad. Mientras el area bajo la curva sea de 1 estaremos hablando de una funcion de densidad.
+
+## Esperanza
+
+<l class = "definition">Esperanza de una v.a. continua.</l> Sea $X$ v.a. continua con densidad $f_X$. La esperanza de $X$ es $$E(X)=\int_{-\infty}^{+\infty}x\cdot f_X(x)dx$$
+
+Si el dominio $D_X$ de $X$ es un intervalo de extremos $a<b$, entonces $$E(X)=\int_a^b x\cdot f_X(x)dx$$
+
+## Esperanza
+
+Sea $g:D_X\longrightarrow \mathbb{R}$ una función continua. Entonces, 
+
+$$E(g(X)) = \int_{-\infty}^{+\infty}g(x)\cdot f_X(x)dx$$
+Si el dominio $D_X$ de $X$ es un intervalo de extremos $a<b$, entonces $$E(g(X))=\int_a^b g(x)\cdot f_X(x)dx$$
+
+## Varianza
+
+<l class = "definition">Varianza de una v.a. continua.</l> Como en el caso discreto, $$Var(X)=E((X-E(X))^2)$$
+
+y se puede demostrar que
+
+$$Var(X)=E(X^2)-(E(X))^2$$
+
+## Distribuciones continuas
+```{r}
+#[Uniforme](https://es.wikipedia.org/wiki/Distribución_uniforme_continua)
+#[Exponencial](https://es.wikipedia.org/wiki/Distribución_exponencial)
+#[Normal](https://es.wikipedia.org/wiki/Distribución_normal)
+#[Khi cuadrado](https://es.wikipedia.org/wiki/Distribución_χ²)
+#[t de Student](https://es.wikipedia.org/wiki/Distribución_t_de_Student)
+#[F de Fisher](https://es.wikipedia.org/wiki/Distribución_F)
+```
 
 
 
+## Distribución Uniforme
+Una V.A. continua es uniforme cuando tiene una distribucion sobre el intervalo real $[a,b]$ si $a<b$, entonces sigue $X\sim\text{U}(a,b)$
+$$f_X(x)=\left\{
+\begin{array}{rl}
+     \frac{1}{b-a} & \text{si } a\le x\le b
+  \\ 0 & \text{en cualquier otro caso}
+\end{array}
+\right.$$
+Vemos que la probabilidad de estar en el intervalo es constante.
+- El **dominio** de $X$ será $D_X = [a,b]$
+
+- La **función de distribución** vendrá dada por $$F_X(x)=\left\{
+\begin{array}{rl}
+    0 & \text{si } x<a
+  \\ \frac{x-a}{b-a} & \text{si } a\le x< b
+  \\ 1 & \text{si } x\ge b
+\end{array}
+\right.$$
+
+- **Esperanza** $E(X) = \frac{a+b}{2}$
+- **Varianza** $Var(X) = \frac{(b-a)^2}{12}$
+
+```{r Distribucion uniforme}
+
+plot(c(0,1,1:4,4,5), c(0,0,dunif(1:4,min = 1, max = 4),0,0),col = "purple", xlab = "", ylab = "", main = "Función de densidad de una U(1,4)", type = "o", ylim = c(0,1))
+plot(0:5, punif(0:5,min = 1, max = 4),col = "purple", xlab = "", ylab = "", main = "Función de distribución de una U(1,4)", type = "o")
+
+```
+
+Supongamos el clasico caso, $X\sim U(0,1)$, podemos modelar:
 
 
+```{r Ejemplo distribucion uniforme}
+a=0
+b=1
+q=0.5
+x<-seq(-0.1,1.1,0.1)
 
+dens_uni<-dunif(x,a,b)
+distr_uni<-punif(x,a,b)
+plot(dens_uni)
+plot(distr_uni)
+runif(1000,a,b)->ale_uni
+hist(ale_uni)
 
-
+```
 
 
 

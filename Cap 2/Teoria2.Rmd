@@ -492,6 +492,7 @@ quantile(dados_a,0.25) # Es similar a manejar percentiles/100
 quantile(dados_a,0.80)
 quantile(dados_a,0.45)
 sort(dados_a)
+
 ```
 Tenemos por debajo del 25% al 2. Es decir 2 deja por debajo al 25% de los datos.
 Si ordenamos la lista, veremos que al 25% aparecen el 1 y el 2.

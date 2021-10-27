@@ -1,0 +1,23 @@
+"0","lm(datosn$Peso~datosn$Grasa)
+"
+"1","
+Call:
+"
+"1",""
+"1","lm(formula = datosn$Peso ~ datosn$Grasa)"
+"1",""
+"1","
+
+"
+"1","Coefficients:
+"
+"1"," (Intercept)  "
+"1","datosn$Grasa  "
+"1","
+"
+"1","     137.738  "
+"1","       2.151  "
+"1","
+"
+"1","
+"

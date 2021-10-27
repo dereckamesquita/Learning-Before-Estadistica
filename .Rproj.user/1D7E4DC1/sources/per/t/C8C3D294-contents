@@ -1,0 +1,77 @@
+#
+set.seed(2021)
+x <- runif(10000,min=1,max=3)
+x
+y <- x^2
+2*mean(y)
+
+
+
+
+# Simulating Brownian Motion
+
+delta <- 0.001
+w0 <- 0
+w <-  numeric(100)
+w[1]<- w0
+x <- rnorm(100)
+for (i in 2:100){
+  w[i] <- w[i-1]+sqrt(delta)*x[i-1]
+}
+
+plot(w, type="l")
+
+
+# Simulating Brownian Motion
+
+s0 <- 100
+r<- 0.05
+sigma <- 0.30
+T <- 1
+K <- 100
+n <- 100
+dt <- T/n
+S <- numeric(n)
+S[1] <-s0
+z<- rnorm(n)
+for (i in 2:n){
+  S[i] <- S[i-1]* exp((r-0.5*sigma^2)*dt+sigma*sqrt(dt)*z[i-1])
+}
+plot(S, type="l")
+
+
+
+# Times series simulation
+
+x <- numeric(200)
+y <- numeric(200)
+e <- rnorm(200)
+u <- rnorm(200)
+
+x[1] <- e [1]
+y[1] <- 0.1+u[1]
+for (t in 2:200){
+  x[t] <- 0.5*x[t-1]+e[t]
+  y[t] <- 0.1+ u[t]+0.7* u [t-1]
+}
+
+plot(x, type = "l")
+lines(y, col="red")
+
+cor(x[2:200], x[1:199])
+
+#Correlacion de orden 2
+
+cor(x[3:200], x[1:198])
+#COrrelacion de orden 3
+cor(x[4:200], x[1:197])
+
+
+acf(x)
+
+
+
+
+
+
+
