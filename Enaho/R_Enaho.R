@@ -1,5 +1,5 @@
 "
-P300A <- ¿Cuál es el Idioma o lengua materna que aprendió en su niñez? 2 0 N
+P300A <- ¿Cuál es el Idioma o lengua materna que aprendió en su niñez?
 1. Quechua
 2. Aimara
 3. Otra lengua nativa
@@ -97,3 +97,8 @@ head(data)
 
 #Obtener datos estadisticos
 summary(data)
+
+
+model <- lm(log(data$P524A1)~log(data$P301A)+log(data$P401H1)+log(data$P401H2)+log(data$P401H3)+log(data$P401H4)+log(data$P401H5))
+
+summary(model)
