@@ -1,27 +1,27 @@
 {
-    "id": "C8C3D294",
-    "path": "G:/Mi unidad/Dereck/RdPro/12 Riesgos/Simulacione.R",
-    "project_path": null,
-    "type": "r_source",
+    "id": "177290B6",
+    "path": "E:/Github/Learning-Before-Estadistica/Cap 2/Teoria3.Rmd",
+    "project_path": "Cap 2/Teoria3.Rmd",
+    "type": "r_markdown",
     "hash": "0",
     "contents": "",
     "dirty": false,
-    "created": 1634396064505.0,
+    "created": 1636993363347.0,
     "source_on_save": false,
-    "relative_order": 3,
+    "relative_order": 9,
     "properties": {
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "66,23",
-        "scrollLine": "0"
+        "cursorPosition": "62,24",
+        "scrollLine": "59"
     },
     "folds": "",
-    "lastKnownWriteTime": 1634516593,
+    "lastKnownWriteTime": 1626023684,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1634516594094,
+    "last_content_update": 1626023684,
     "read_only": false,
     "read_only_alternatives": []
 }

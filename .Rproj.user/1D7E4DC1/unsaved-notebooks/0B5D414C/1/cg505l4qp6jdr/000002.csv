@@ -1,0 +1,2 @@
+"0","ruta <-""E:/Github/Learning-Before-Estadistica/Enaho/data.csv"""
+"0","data <- read.csv(ruta, header=TRUE)"

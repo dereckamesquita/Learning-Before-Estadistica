@@ -1,4 +1,9 @@
 "
+P207 Sexo
+1. Hombre
+2. Mujer
+
+
 P300A <- ¿Cuál es el Idioma o lengua materna que aprendió en su niñez? 2 0 N
 1. Quechua
 2. Aimara
@@ -77,6 +82,78 @@ P524A1
 bonificaciones, pago por concepto de refrigerio, movilidad, comisiones, etc.? - Monto
 S/. - Ingreso Total
 "
+#Simulacion
+set.seed(2021)
+obs=15
+x1 <- sample(1:4,obs, replace=T)
+x2 <- sample(1:2,obs, replace=T)
+y <- sample(1000:1500, obs, replace=T)
+
+levelsx1 = c("obrero","empleado","gerente","dueño")
+
+#Forma 1
+for (a in (1:4)){
+  x1[x1==a]=levelsx1[a]
+}
+
+x1d<- factor(x1,levels =levelsx1)
+x1d
+head(x1)
+str(x1)
+model1<- model.matrix(y~x2+x1d)
+head(model1[,-1])
+
+#forma 2
+
+x1[x1=="1"]="obrero"
+x1[x1=="2"]="empleado"
+x1[x1=="3"]="gerente"
+x1[x1=="4"]="dueño"
+
+x1d<- factor(x1,levels =c("obrero","empleado","gerente","dueño" ))
+
+
+
+x1<- ordered(x1)
+levels(x1) = c("obrero","empleado","gerente","dueño")
+dfprueba<- data.frame(y,x1,x2)
+
+head(x1)
+str(x1)
+model1<- model.matrix(y~x2+x1d)
+
+head(model1[,-1])
+
+#Modelado
+library(ggplot2)
+
+dfprueba<- data.frame(y,x1d,x2)
+
+ggplot(dfprueba, aes(x=x2, y=y, color=x1d)) + 
+  geom_point() + theme_light()
+
+
+##
+Precio <- c(12, 15, 25, 11, 16, 7)
+Area <- c(3, 4, 1, 6, 5, 3)
+Pisci <- factor(x=c('Grande', 'Sin', 'Pequena', 'Pequena', 'Sin', 'Grande'),
+                levels=c('Sin','Pequena','Grande'))
+
+model.matrix(Precio ~ Area + Pisci)
+
+##
+
+dfprueba<- data.frame(y,x1,x2)
+plot(dfprueba)
+
+dfprueba$x1 <- factor(dfprueba$x1, levels = factores, ordered = T)
+
+plot(dfprueba$x1)
+
+table(x1)
+
+res <- model.matrix(~x1, data = dfprueba)
+head(res[, -1])
 
 
 ##Importar la data

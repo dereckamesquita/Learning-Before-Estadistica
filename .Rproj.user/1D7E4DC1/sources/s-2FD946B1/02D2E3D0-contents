@@ -1,0 +1,252 @@
+#####################################################################
+# RdPro
+#####################################################################
+
+#####################################################################
+# DANIEL MORALES V?SQUEZ
+#####################################################################
+
+####################################################################
+# Class 5: Linear Regression
+###################################################################
+
+#############################################################################
+# Simulating a Linear Model
+#############################################################################
+# https://bookdown.org/rdpeng/rprogdatascience/simulation.html #
+
+## Always set your seed!
+set.seed(20)             
+
+## Simulate predictor variable
+x <- rnorm(100)          
+
+## Simulate the error term
+e <- rnorm(100, 0, 2)    
+
+## Compute the outcome via the model
+y <- 0.5 + 2 * x + e     
+
+plot(x, y)
+
+Regresion <- lm(y ~ x)
+Regresion
+Regre2 <- lm(y~x+e)
+Regre2
+summary(Regresion)
+
+Regresion$coefficients[1]
+Regresion$coefficients[2]
+
+coefficients(Regresion)
+coefficients(Regresion)[1]
+coefficients(Regresion)[2]
+
+residuals(Regresion)
+residuos <- residuals(Regresion)
+plot(residuos)
+plot(e)
+####################################################################
+# Intro to Linear Regressions
+####################################################################
+
+# x grid
+x <- seq(0, 2*pi, by = 0.01)
+
+# y 
+y = 2*sin(x)+1
+plot(x,y)
+
+# y: low noise
+y.low <- y + rnorm(n = length(y), mean = 0, sd = 0.1)
+
+# y: medium noise
+y.mid <- y + rnorm(n = length(y), mean = 0, sd = 1)
+
+# y: high noise
+y.high <- y + rnorm(n = length(y), mean = 0, sd = 10)
+
+# plot
+layout(t(1:3))
+plot(y.low  ~ x, main = "Low Noise")
+plot(y.mid  ~ x, main = "Medium Noise")
+plot(y.high ~ x, main = "High Noise")
+layout(t(1:1))
+
+# low noise
+summary(lm(y.low ~ sin(x)))
+
+# medium noise
+summary(lm(y.mid ~ sin(x)))
+
+# high noise
+summary(lm(y.high ~ sin(x)))
+
+####################################################################
+# http://r-statistics.co/adv-regression-models.html
+####################################################################
+
+# For this analysis, we will use the cars dataset that comes with R 
+# by default. cars is a standard built-in dataset, that makes it 
+# convenient to demonstrate linear regression in a simple and easy 
+# to understand fashion. You can access this dataset simply by 
+# typing in cars in your R console. You will find that it consists 
+# of 50 observations(rows) and 2 variables (columns) - dist and 
+# speed. Lets print out the first six observations here.
+
+head(cars)
+
+# Scatter Plot
+# Scatter plots can help visualize any linear relationships 
+# between the dependent (response) variable and independent 
+# (predictor) variables. Ideally, if you are having multiple 
+# predictor variables, a scatter plot is drawn for each one 
+# of them against the response, along with the line of best 
+# as seen below.
+
+scatter.smooth(x=cars$speed, y=cars$dist, main="Dist ~ Speed")  # scatterplot
+
+# Correlation
+# Correlation is a statistical measure that suggests the level 
+# of linear dependence between two variables, that occur in 
+# pair - just like what we have here in speed and dist. 
+# Correlation can take values between -1 to +1. If we observe 
+# for every instance where speed increases, the distance also 
+# increases along with it, then there is a high positive 
+# correlation between them and therefore the correlation between 
+# them will be closer to 1. The opposite is true for an inverse 
+# relationship, in which case, the correlation between the 
+# variables will be close to -1.
+# A value closer to 0 suggests a weak relationship between the 
+# variables. A low correlation (-0.2 < x < 0.2) probably suggests
+# that much of variation of the response variable (Y) is 
+# unexplained by the predictor (X), in which case, we should 
+# probably look for better explanatory variables.
+
+cor(cars$speed, cars$dist)  # calculate correlation between speed and distance 
+
+# Build Linear Model
+# Now that we have seen the linear relationship pictorially in 
+# the scatter plot and by computing the correlation, lets see 
+# the syntax for building the linear model. The function used 
+# for building linear models is lm(). The lm() function takes 
+# in two main arguments, namely: 1. Formula 2. Data. The data 
+# is typically a data.frame and the formula is a object of class 
+# formula. But the most common convention is to write out the 
+# formula directly in place of the argument as written below.
+
+linearMod <- lm(dist ~ speed, data=cars)  # build linear regression model on full data
+print(linearMod)
+
+# Linear Regression Diagnostics
+# Now the linear model is built and we have a formula that we 
+# can use to predict the dist value if a corresponding speed 
+# is known. Is this enough to actually use this model? NO! 
+# Before using a regression model, you have to ensure that it 
+# is statistically significant. How do you ensure this? Lets 
+# begin by printing the summary statistics for linearMod.
+
+summary(linearMod)
+
+modelSummary <- summary(linearMod)  # capture model summary as an object
+modelCoeffs <- modelSummary$coefficients  # model coefficients
+beta.estimate <- modelCoeffs["speed", "Estimate"]  # get beta estimate for speed
+std.error <- modelCoeffs["speed", "Std. Error"]  # get std.error for speed
+t_value <- beta.estimate/std.error  # calc t statistic
+p_value <- 2*pt(-abs(t_value), df=nrow(cars)-ncol(cars))  # calc p Value
+f_statistic <- linearMod$fstatistic[1]  # fstatistic
+f <- summary(linearMod)$fstatistic  # parameters for model p-value calc
+model_p <- pf(f[1], f[2], f[3], lower=FALSE)
+
+####################################################################
+# CAPM
+####################################################################
+
+# https://www.r-bloggers.com/basic-linear-regressions-for-finance/
+  
+cat("\f") # Clear the Console (Ctrl+L)
+rm(list = ls()) # Clear the environment 
+
+library("openxlsx")
+
+data <- read.xlsx("CAPM.xlsx")
+
+data <- data[,-1]
+
+head(data)
+
+portfolios <- data[,-c(11,12)]
+head(portfolios)
+#Ahora a las rentabilidades estamos limpiandolas del rendimiento libre de riesgo
+portfolios <- portfolios - data$RF
+
+head(portfolios)
+
+# define an empty data frame
+capm <- data.frame()
+
+# define a matrix to store residuals
+eps <- matrix(NA, nrow = nrow(portfolios), ncol = ncol(portfolios))
+head(eps)
+
+# for each portfolio...
+
+for(i in 1:ncol(portfolios)){
+  
+  # linear regression 
+  mod <- lm(portfolios[,i] ~ data$Mkt.RF)
+  
+  # summary
+  mod.s <- summary(mod)
+  
+  # store residuals
+  eps[,i] <- residuals(mod)
+  
+  # extract coefficients
+  alpha <- mod.s$coefficients[1,'Estimate']
+  beta  <- mod.s$coefficients[2,'Estimate']
+  
+  # extract standard errors of the estimates
+  sd.alpha <- mod.s$coefficients[1,'Std. Error']
+  sd.beta  <- mod.s$coefficients[2,'Std. Error']
+  
+  # compute the average excess return
+  excess  <- mean(portfolios[,i])
+  
+  # store everything into the capm dataframe
+  row  <- c(excess, alpha, sd.alpha, beta, sd.beta)
+  capm <- rbind(capm, row)
+  }
+
+# assign colnames
+colnames(capm) <- c('excess', 'alpha', 'sd.alpha', 'beta', 'sd.beta')
+
+# print
+capm
+
+# linear regression
+sml <- lm(capm$excess ~ capm$beta)
+
+# print
+summary(sml)
+plot(capm$beta,capm$excess)
+
+# grid of beta 
+betas <- seq(0, 2, by = 0.01)
+
+# excess returns by CAPM
+E.R  <- betas * mean(data$Mkt.RF)
+
+# plot
+plot(E.R ~ betas, type = 'l', lwd = 2, col = 'orange', 
+     main = "SML vs Beta Regression", xlab = 'Beta', 
+     ylab = 'Mean Excess Return')
+
+# add points estimated in the time-series approach
+points(x = capm$beta, y = capm$excess,  pch = 16, cex = 1)
+text(labels = 1:10, x = capm$beta, y = capm$excess, cex = 1, pos = 3)
+
+# add regression line
+abline(sml, lty = 'dashed')
+
+apply(eps, 2, mean)
