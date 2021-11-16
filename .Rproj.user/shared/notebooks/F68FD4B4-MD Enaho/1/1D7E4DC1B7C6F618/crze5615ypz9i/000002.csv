@@ -1,0 +1,3 @@
+"0","datafull<-full_join(dedu,diyl,by=""MES"")"
+"0","data<-na.omit(datafull)"
+"0",""

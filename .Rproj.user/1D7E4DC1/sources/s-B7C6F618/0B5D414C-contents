@@ -1,0 +1,315 @@
+---
+title: "R Mark Enaho"
+output: html_notebook
+---
+
+
+```{r}
+library(dplyr)
+library(readxl)
+library(ggplot2)
+```
+
+
+# Descarga de Data
+
+```{r Descarga de datos}
+edu <-"https://raw.githubusercontent.com/dereckamesquita/Learning-Before-Estadistica/main/Enaho/Data_Enaho/educacion.csv"
+sal<-"https://raw.githubusercontent.com/dereckamesquita/Learning-Before-Estadistica/main/Enaho/Data_Enaho/salud.csv"
+iyl<-"https://raw.githubusercontent.com/dereckamesquita/Learning-Before-Estadistica/main/Enaho/Data_Enaho/ingresosylaboral.csv"
+dedu <- read.csv(edu)
+dsal<- read.csv(sa)
+diyl<- read.csv(iyl)
+```
+
+
+
+```{r Descarga de datos en pc}
+edu <-"E:/Github/Learning-Before-Estadistica/Enaho/Data_Enaho/educacion.xlsx"
+sal<-"E:/Github/Learning-Before-Estadistica/Enaho/Data_Enaho/salud.xlsx"
+iyl<-"E:/Github/Learning-Before-Estadistica/Enaho/Data_Enaho/ingresosylaboral.xlsx"
+dedu<- read_excel(edu)
+dsal<- read_excel(sal)
+diyl<- read_excel(iyl)
+```
+
+
+Uniremos las bases de datos
+```{r Merge}
+datafull<-full_join(dedu,diyl,by="MES")
+data<-na.omit(datafull)
+
+```
+
+
+```{r}
+datafull1<-full_join(data,dsal,by="MES")
+data1<-na.omit(datafull1)
+data1$P524A1[data1$P524A1=="999999"]=NA
+
+data1$P301A[data1$P301A=="Básica especial"]=NA
+data1 <- na.omit(data1)
+
+```
+# Exportar data
+```{r}
+write.csv(data1, file="E:/Github/Learning-Before-Estadistica/Enaho/Data_Enaho/export/data.csv")
+
+```
+## Llamando a la nueva data
+```{r}
+data1<-read.csv(file ="E:/Github/Learning-Before-Estadistica/Enaho/Data_Enaho/export/data.csv", header=T )
+
+```
+
+# Dando niveles a las variables
+```{r P207}
+P207 <- c("Hombre","Mujer")
+#Forma 1
+for (a in (1:2)){
+  data1$P207[data1$P207==a]=P207[a]
+}
+
+data1$P207<- factor(data1$P207,levels =P207)
+modelP207<- model.matrix(data1$P524A1~data1$P207+data1$P513T)
+
+
+```
+```{r P300A}
+
+
+P300A <- c("Quechua","Aimara","Otra lengua nativa","Castellano",
+          "Portugués","Otra lengua extranjera","No escucha/no habla","Lengua de señas peruanas","Ashaninka","Awajún","Shipibo","Shawi","Matsigenka","Achuar")
+
+#Forma 1
+for (a in (1:15)){
+  data1$P300A[data1$P300A==a]=P300A[a]
+}
+table(data1$P300A)
+
+data1$P300A<- factor(data1$P300A,levels =P300A)
+modelP300A<- model.matrix(data1$P524A1~data1$P207+data1$P300A)
+
+```
+
+
+```{r P301A}
+P301A <- c("Sin nivel","Educación inicial","Primaria incompleta","Primaria completa",
+          "Secundaria incompleta","Secundaria completa","Superior no universitaria Incompleta","Superior no universitaria completa","Superior universitaria completa","Maestria/Doctorado","Básica especial")
+
+#Forma 1
+for (a in (1:12)){
+  data1$P301A[data1$P301A==a]=P301A[a]
+}
+
+data1$P301A<- factor(data1$P301A,levels =P301A)
+modelP301A<- model.matrix(data1$P524A1~data1$P301A+data1$P207)
+#head(modelP301A[,-1])
+
+```
+
+```{r h400 - adelante}
+"
+P401 <- c("Si","No")
+Ph <- c("Lim_moverse","Lim_mirar","Lim_hablar","Lim_oir","Lim_comprender","Lim_convivir")
+P401d<- c("P401H1","P401H2","P401H3","P401H4","P401H5","P401H6")
+
+for (a in (1:2)){
+  data1$P401H1[data1$P401H1==a]=P401[a]
+  data1$P401H2[data1$P401H2==a]=P401[a]
+  data1$P401H3[data1$P401H3==a]=P401[a]
+  data1$P401H4[data1$P401H4==a]=P401[a]
+  data1$P401H5[data1$P401H5==a]=P401[a]
+  data1$P401H6[data1$P401H6==a]=P401[a]
+  
+}
+
+
+
+data1$P401H1<- factor(data1$P401H1, levels = P401)
+data1$P401H2<- factor(data1$P401H2, levels = P401)
+data1$P401H3<- factor(data1$P401H3, levels = P401)
+data1$P401H4<- factor(data1$P401H4, levels = P401)
+data1$P401H5<- factor(data1$P401H5, levels = P401)
+data1$P401H6<- factor(data1$P401H6, levels = P401)
+  
+"
+```
+
+```{r P401 forma categorica}
+#Cambiamos todos los 2 por el numero 0.
+data1$P401H1[data1$P401H1==2]=0
+data1$P401H2[data1$P401H2==2]=0
+data1$P401H3[data1$P401H3==2]=0
+data1$P401H4[data1$P401H4==2]=0
+data1$P401H5[data1$P401H5==2]=0
+data1$P401H6[data1$P401H6==2]=0
+#Creamos una columna con el total de los que tienen limitaciones
+
+data1$P401HT <- data1$P401H1+data1$P401H2+data1$P401H3+data1$P401H4+data1$P401H5+data1$P401H6
+
+data1$P401HT <- data1$P401HT+1
+
+#Categorizamos
+
+P401HT <- c("Sano","Una_limitacion","Dos_limitacion","Tres_limitacion","Cuatro_limitacion")
+
+#Forma 1
+for (a in (1:5)){
+  data1$P401HT[data1$P401HT==a]=P401HT [a]
+}
+
+data1$P401HT <- factor(data1$P401HT ,levels =P401HT )
+  
+```
+
+```{r}
+
+```
+
+
+  
+  
+```{r}
+data1$P524A1=as.numeric(data1$P524A1)
+ggplot(data1, aes(x=DOMINIO, y=P524A1, color=P301A)) + 
+  geom_point() + theme_light()
+
+max(data1$P524A1)
+
+```
+
+```{r}
+mod <- lm(P524A1 ~ P301A + P207
+          , data=data1)
+summary(mod)
+
+ggplot(data1, aes(x=P207, y=P524A1, color=P301A)) + 
+  geom_point() + theme_light()
+
+```
+
+```{r}
+hist(data1$P524A1)
+
+```
+```{r}
+mod <- lm(P524A1 ~ P301A + P207+ P401H1+ P401H2 + P401H3 + P401H4 + P401H5 + P401H6
+          , data=data1)
+summary(mod)
+
+ggplot(data1, aes(x=P401HT, y=P524A1)) + 
+  geom_point() + theme_light()
+
+tablasalud <- table(data1$P401HT)
+tablasalud_ <- prop.table(tablasalud)
+barplot(tablasalud, xlab='Estrato socioeconómico',
+        ylab='Frecuencia relativa', las=1)
+plot(data1$P401HT,data1$P524A1)
+
+log_sal <- log(data1$P524A1)
+mod <- lm(log(log_sal) ~ data1$P401HT)
+summary(mod)
+```
+## Division por dominio
+
+Dominio Geográfico 
+1. Costa Norte
+2. Costa Centro
+3. Costa Sur
+4. Sierra Norte
+5. Sierra Centro
+6. Sierra Sur
+7. Selva
+8. Lima Metropolitana
+```{r}
+data1$DOMINIO <- as.numeric(data1$DOMINIO)
+
+str(data1$DOMINIO)
+Dominios1 <- c("CostaNorte", "CostaCentro", "CostaSur","SierraNorte","SierraCentro","SierraSur","Selva", "LimaMetropolitana")
+
+Dominios <- c("CN", "CC", "CS","SN","SC","SS","SE", "LM")
+#Cambiamos numeros
+for (a in (1:8)){
+  data1$DOMINIO[data1$DOMINIO==a]=Dominios[a]
+}
+
+data1$DOMINIO<- factor(data1$DOMINIO,levels =Dominios)
+```
+
+
+```{r}
+data1$DOMINIO <- as.numeric(data1$DOMINIO)
+
+str(data1$DOMINIO)
+Dominios <- c("CostaNorte", "CostaCentro", "CostaSur","SierraNorte","SierraCentro","SierraSur","Selva", "LimaMetropolitana")
+
+#Cambiamos numeros
+for (a in (1:8)){
+  data1$DOMINIO[data1$DOMINIO==a]=Dominios[a]
+}
+
+
+Subdominios  <- numeric(8)
+for  (i in 1:8){
+  Subdominios[i] <- paste("sub", Dominios[i], sep="")
+}
+
+espacio <- numeric(10)
+for (a in 1:8){
+  assign(paste0("sub",Dominios[a]), espacio)
+}
+
+filter(data1, DOMINIO=="CostaNorte")
+data1$DOMINIO==Dominios[1]
+
+dataCostaNorte <- filter(data1, DOMINIO==2)
+head(dataCostaNorte)
+subs <- matrix(NA, nrow = 8)
+subs
+
+```
+
+```{r}
+dataCostaNorte <- filter(data1, DOMINIO==1)
+dataCostaCentro <- filter(data1, DOMINIO==2)
+dataCostaSur <- filter(data1, DOMINIO==3)
+dataSierraNorte <- filter(data1, DOMINIO==4)
+dataSierraCentro <- filter(data1, DOMINIO==5)
+dataSierraSur <- filter(data1, DOMINIO==6)
+dataSelva <- filter(data1, DOMINIO==7)
+dataLimaMetropolitana <- filter(data1, DOMINIO==8)
+
+```
+```{r}
+datas<-c(dataCostaNorte,dataCostaCentro)
+mod <- lm(datas[1]$P207 ~ datas[1]$P207)
+
+```
+
+for(i in 1:ncol(portfolios)){
+  
+  # linear regression 
+  mod <- lm(portfolios[,i] ~ data$Mkt.RF)
+  
+  # summary
+  mod.s <- summary(mod)
+  
+  # store residuals
+  eps[,i] <- residuals(mod)
+  
+  # extract coefficients
+  alpha <- mod.s$coefficients[1,'Estimate']
+  beta  <- mod.s$coefficients[2,'Estimate']
+  
+  # extract standard errors of the estimates
+  sd.alpha <- mod.s$coefficients[1,'Std. Error']
+  sd.beta  <- mod.s$coefficients[2,'Std. Error']
+  
+  # compute the average excess return
+  excess  <- mean(portfolios[,i])
+  
+  # store everything into the capm dataframe
+  row  <- c(excess, alpha, sd.alpha, beta, sd.beta)
+  capm <- rbind(capm, row)
+  }

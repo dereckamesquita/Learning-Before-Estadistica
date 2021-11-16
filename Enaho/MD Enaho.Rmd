@@ -1,0 +1,114 @@
+---
+title: "R Mark Enaho"
+output: html_notebook
+---
+
+
+```{r}
+library(dplyr)
+library(readxl)
+library(ggplot2)
+```
+
+
+# Descarga de Data
+
+```{r Descarga de datos}
+edu <-"https://raw.githubusercontent.com/dereckamesquita/Learning-Before-Estadistica/main/Enaho/Data_Enaho/educacion.csv"
+sal<-"https://raw.githubusercontent.com/dereckamesquita/Learning-Before-Estadistica/main/Enaho/Data_Enaho/salud.csv"
+iyl<-"https://raw.githubusercontent.com/dereckamesquita/Learning-Before-Estadistica/main/Enaho/Data_Enaho/ingresosylaboral.csv"
+dedu <- read.csv(edu)
+dsal<- read.csv(sa)
+diyl<- read.csv(iyl)
+```
+
+
+
+```{r Descarga de datos en pc}
+edu <-"E:/Github/Learning-Before-Estadistica/Enaho/Data_Enaho/educacion.xlsx"
+sal<-"E:/Github/Learning-Before-Estadistica/Enaho/Data_Enaho/salud.xlsx"
+iyl<-"E:/Github/Learning-Before-Estadistica/Enaho/Data_Enaho/ingresosylaboral.xlsx"
+dedu<- read_excel(edu)
+dsal<- read_excel(sal)
+diyl<- read_excel(iyl)
+```
+
+
+Uniremos las bases de datos
+```{r}
+datafull<-full_join(dedu,diyl,by="MES")
+data<-na.omit(datafull)
+data
+```
+
+
+```{r}
+datafull1<-full_join(data,dsal,by="MES")
+data1<-na.omit(datafull1)
+datacortada <- data1$P524A1[1:100]
+data1$P524A1[data1$P524A1=="999999"]="0"
+data1$P301A[data1$P301A=="Básica especial"]=NA
+data1 <- na.omit(data1)
+```
+
+
+# Dando niveles a las variables
+```{r P207}
+P207 <- c("Hombre","Mujer")
+#Forma 1
+for (a in (1:2)){
+  data1$P207[data1$P207==a]=P207[a]
+}
+
+data1$P207<- factor(data1$P207,levels =P207A)
+modelP207<- model.matrix(data1$P524A1~data1$P207+data1$P513T)
+head(modelP207[,-1])
+
+```
+
+
+```{r P301A}
+P301A <- c("Sin nivel","Educación inicial","Primaria incompleta","Primaria completa",
+          "Secundaria incompleta","Secundaria completa","Superior no universitaria Incompleta","Superior no universitaria completa","Superior universitaria completa","Maestria/Doctorado","Básica especial")
+
+#Forma 1
+for (a in (1:12)){
+  data1$P301A[data1$P301A==a]=P301A[a]
+}
+
+data1$P301A<- factor(data1$P301A,levels =P301A)
+modelP301A<- model.matrix(data1$P524A1~data1$P301A+data1$P207)
+#head(modelP301A[,-1])
+
+```
+
+```{r}
+
+str(data1)
+```
+
+
+  
+  
+```{r}
+data1$P524A1=as.numeric(data1$P524A1)
+ggplot(data1, aes(x=P207, y=P524A1, color=P301A)) + 
+  geom_point() + theme_light()
+
+```
+
+```{r}
+mod <- lm(P524A1 ~ P301A + P207
+          , data=data1)
+summary(mod)
+
+ggplot(data1, aes(x=P301A, y=P524A1)) + 
+  geom_point() + theme_light()
+
+```
+
+```{r}
+hist(data1$P524A1)
+
+```
+

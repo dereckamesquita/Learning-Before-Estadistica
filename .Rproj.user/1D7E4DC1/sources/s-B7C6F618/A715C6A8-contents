@@ -174,3 +174,25 @@ head(data)
 
 #Obtener datos estadisticos
 summary(data)
+
+
+d <- 5
+for(i in 1:10) { 
+  nam <- paste("A", i, sep = "")
+  assign(nam, rnorm(3)+d)
+}
+
+
+name=numeric(2)
+c <- c("Juan","Pedro")
+for  (i in 1:2){
+  name[i] <- paste("sub",c[i], sep="")
+}
+
+name
+
+
+#Crear variables en bucles
+
+list <- c(1,0,1,4,5,6)
+assign(paste0("variable", list[5]), list[5])

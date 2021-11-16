@@ -1,0 +1,6 @@
+"0","datafull1<-full_join(data,dsal,by=""MES"")"
+"0","data1<-na.omit(datafull1)"
+"0","data1$P524A1[data1$P524A1==""999999""]=NA"
+"0","data1$P301A[data1$P301A==""Básica especial""]=NA"
+"0","data1 <- na.omit(data1)"
+"0",""

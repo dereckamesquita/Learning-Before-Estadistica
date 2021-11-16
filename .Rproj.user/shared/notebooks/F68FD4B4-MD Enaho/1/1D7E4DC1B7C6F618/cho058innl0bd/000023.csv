@@ -1,0 +1,7 @@
+"0","for (a in 1:8){
+  assign(paste0(""sub"",a))
+}
+"
+"2","Error in assign(paste0(""sub"", a)) : 
+  el argumento ""value"" está ausente, sin valor por omisión
+"

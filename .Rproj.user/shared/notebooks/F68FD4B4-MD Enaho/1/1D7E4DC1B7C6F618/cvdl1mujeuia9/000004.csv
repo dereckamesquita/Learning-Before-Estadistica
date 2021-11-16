@@ -1,0 +1,6 @@
+"0","edu <-""E:/Github/Learning-Before-Estadistica/Enaho/Data_Enaho/educacion.xlsx"""
+"0","sal<-""E:/Github/Learning-Before-Estadistica/Enaho/Data_Enaho/salud.xlsx"""
+"0","iyl<-""E:/Github/Learning-Before-Estadistica/Enaho/Data_Enaho/ingresosylaboral.xlsx"""
+"0","dedu<- read_excel(edu)"
+"0","dsal<- read_excel(sal)"
+"0","diyl<- read_excel(iyl)"
