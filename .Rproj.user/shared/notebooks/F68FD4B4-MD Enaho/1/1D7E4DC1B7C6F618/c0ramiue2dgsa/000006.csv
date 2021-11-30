@@ -1,7 +1,0 @@
-"0","#Forma 1
-for (a in (1:5)){
-  data1$P401HT[data1$P401HT==a]=P401HT [a]
-}
-"
-"2","Error in P401HT : objeto 'P401HT' no encontrado
-"

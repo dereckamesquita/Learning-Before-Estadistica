@@ -1,4 +1,0 @@
-"0","data1$P524A1=as.numeric(data1$P524A1)"
-"0","ggplot(data1, aes(x=P207, y=P524A1, color=P301A)) + "
-"0","  geom_point() + theme_light()"
-"0",""

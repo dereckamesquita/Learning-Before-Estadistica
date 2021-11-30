@@ -1,5 +1,0 @@
-"0","mod <- lm(datas[1]$P207 ~ datas[1]$P207)
-"
-"2","Error in model.frame.default(formula = datas[1]$P207 ~ datas[1]$P207,  : 
-  invalid type (NULL) for variable 'datas[1]$P207'
-"
