@@ -7,10 +7,7 @@ output: html_notebook
 ```{r}
 library(dplyr)
 library(readxl)
-install.packages("stargazer")
-install.packages("normtest")
 library(normtest)
-
 library(stargazer)
 library(ggplot2)
 ```
@@ -189,6 +186,7 @@ ggplot(data1, aes(x=DOMINIO, y=P524A1, color=P301A)) +
   geom_point() + theme_light()
 mod1 <- lm(P524A1 ~ DOMINIO ,data=data1)
 summary(mod1)
+stargazer(mod1, type="text")
 
 ```
 
