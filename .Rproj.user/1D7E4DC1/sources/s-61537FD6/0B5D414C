@@ -1,9 +1,9 @@
 {
     "id": "0B5D414C",
-    "path": "E:/Github/Learning-Before-Estadistica/Enaho/MD Enaho.Rmd",
-    "project_path": "Enaho/MD Enaho.Rmd",
+    "path": "E:/Github/Learning-Before-Estadistica/Enaho/MD Enaho exportable.Rmd",
+    "project_path": "Enaho/MD Enaho exportable.Rmd",
     "type": "r_markdown",
-    "hash": "3545169223",
+    "hash": "460587013",
     "contents": "",
     "dirty": false,
     "created": 1636996235435.0,
@@ -14,15 +14,15 @@
         "chunk_output_type": "inline",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "66,6",
-        "scrollLine": "47"
+        "cursorPosition": "194,0",
+        "scrollLine": "187"
     },
     "folds": "",
-    "lastKnownWriteTime": 1638295589,
+    "lastKnownWriteTime": 1638300887,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1638295589893,
+    "last_content_update": 1638300887528,
     "read_only": false,
     "read_only_alternatives": []
 }
