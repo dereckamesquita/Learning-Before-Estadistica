@@ -1,0 +1,261 @@
+---
+title: "R Mark Enaho"
+output:
+  html_document:
+    df_print: paged
+---
+
+
+```{r}
+library(dplyr)
+library(readxl)
+library(normtest)
+library(stargazer)
+library(ggplot2)
+```
+## Llamando a la nueva data
+```{r}
+data1<-read.csv(file ="E:/Github/Learning-Before-Estadistica/Enaho/Data_Enaho/export/data.csv", header=T )
+
+```
+
+# Dando niveles a las variables
+```{r P207}
+P207 <- c("Hombre","Mujer")
+#Forma 1
+for (a in (1:2)){
+  data1$P207[data1$P207==a]=P207[a]
+}
+
+data1$P207<- factor(data1$P207,levels =P207)
+modelP207<- model.matrix(data1$P524A1~data1$P207+data1$P513T)
+
+
+```
+```{r P300A}
+
+
+P300A <- c("Quechua","Aimara","Otra lengua nativa","Castellano",
+          "Portugués","Otra lengua extranjera","No escucha/no habla","Lengua de señas peruanas","Ashaninka","Awajún","Shipibo","Shawi","Matsigenka","Achuar")
+
+#Forma 1
+for (a in (1:15)){
+  data1$P300A[data1$P300A==a]=P300A[a]
+}
+data1$P300A<- factor(data1$P300A,levels =P300A)
+modelP300A<- model.matrix(data1$P524A1~data1$P207+data1$P300A)
+
+```
+```{r P301A}
+P301A <- c("Sin nivel","Educación inicial","Primaria incompleta","Primaria completa",
+          "Secundaria incompleta","Secundaria completa","Superior no universitaria Incompleta","Superior no universitaria completa","Superior universitaria completa","Maestria/Doctorado","Básica especial")
+
+#Forma 1
+for (a in (1:12)){
+  data1$P301A[data1$P301A==a]=P301A[a]
+}
+
+#Limpieza de Educacion Basica
+data1$P301A[data1$P301A=="Básica especial"]=NA
+data1 <- na.omit(data1)
+#Niveles
+data1$P301A<- factor(data1$P301A,levels =P301A)
+modelP301A<- model.matrix(data1$P524A1~data1$P301A+data1$P207)
+
+
+```
+
+
+```{r P401 forma categorica}
+#Cambiamos todos los 2 por el numero 0.
+data1$P401H1[data1$P401H1==2]=0
+data1$P401H2[data1$P401H2==2]=0
+data1$P401H3[data1$P401H3==2]=0
+data1$P401H4[data1$P401H4==2]=0
+data1$P401H5[data1$P401H5==2]=0
+data1$P401H6[data1$P401H6==2]=0
+#Creamos una columna con el total de los que tienen limitaciones
+
+data1$P401HT <- data1$P401H1+data1$P401H2+data1$P401H3+data1$P401H4+data1$P401H5+data1$P401H6
+
+data1$P401HT <- data1$P401HT+1
+
+#Categorizamos
+
+P401HT <- c("Sano","Una_limitacion","Dos_limitacion","Tres_limitacion","Cuatro_limitacion")
+
+#Forma 1
+for (a in (1:5)){
+  data1$P401HT[data1$P401HT==a]=P401HT [a]
+}
+
+data1$P401HT <- factor(data1$P401HT ,levels =P401HT )
+  
+```
+```{r}
+data1$DOMINIO <- as.numeric(data1$DOMINIO)
+
+Dominios1 <- c("CostaNorte", "CostaCentro", "CostaSur","SierraNorte","SierraCentro","SierraSur","Selva", "LimaMetropolitana")
+
+Dominios <- c("CN", "CC", "CS","SN","SC","SS","SE", "LM")
+#Cambiamos numeros
+for (a in (1:8)){
+  data1$DOMINIO[data1$DOMINIO==a]=Dominios[a]
+}
+
+data1$DOMINIO<- factor(data1$DOMINIO,levels =Dominios)
+```
+# Primeros graficos
+```{r}
+data1$P524A1=as.numeric(data1$P524A1)
+ggplot(data1, aes(x=DOMINIO, y=P524A1, color=P301A)) + 
+  geom_point() + theme_light()
+mod1 <- lm(P524A1 ~ DOMINIO ,data=data1)
+stargazer(mod1, type="text")
+
+```
+
+```{r}
+mod <- lm(P524A1 ~ P301A
+          , data=data1)
+
+mod2 <- lm(P524A1~ P207, data=data1)
+stargazer(mod2, type="text")
+
+stargazer(mod, type="text")
+jb.norm.test(mod$residuals)
+
+ggplot(data1, aes(x=P207, y=P524A1, color=P301A)) + 
+  geom_point() + theme_light()
+
+```
+
+```{r}
+hist(data1$P524A1)
+
+```
+```{r}
+mod <- lm(P524A1 ~ P301A + P207+ P401H1+ P401H2 + P401H3 + P401H4 + P401H5 + P401H6
+          , data=data1)
+stargazer(mod, type="text")
+
+ggplot(data1, aes(x=P401HT, y=P524A1)) + 
+  geom_point() + theme_light()
+
+tablasalud <- table(data1$P401HT)
+tablasalud_ <- prop.table(tablasalud)
+barplot(tablasalud, xlab='Estrato socioeconómico',
+        ylab='Frecuencia relativa', las=1)
+plot(data1$P401HT,data1$P524A1)
+
+log_sal <- log(data1$P524A1)
+mod <- lm(log(log_sal) ~ data1$P401HT)
+stargazer(mod, type="text")
+```
+## Division por dominio
+
+Dominio Geográfico 
+1. Costa Norte
+2. Costa Centro
+3. Costa Sur
+4. Sierra Norte
+5. Sierra Centro
+6. Sierra Sur
+7. Selva
+8. Lima Metropolitana
+
+
+
+
+```{r Creacion de subdominios}
+dataCostaNorte <- filter(data1, DOMINIO=="CN")
+dataCostaCentro <- filter(data1, DOMINIO=="CC")
+dataCostaSur <- filter(data1, DOMINIO=="CS")
+dataSierraNorte <- filter(data1, DOMINIO=="SN")
+dataSierraCentro <- filter(data1, DOMINIO=="SC")
+dataSierraSur <- filter(data1, DOMINIO=="SS")
+dataSelva <- filter(data1, DOMINIO=="SE")
+dataLimaMetropolitana <- filter(data1, DOMINIO=="LM")
+
+```
+```{r}
+model_CN<-lm(P524A1 ~ P301A + P207+ P513T, data=dataCostaNorte)
+model_CC<-lm(P524A1 ~ P301A + P207+ P513T, data=dataCostaCentro)
+model_CS<-lm(P524A1 ~ P301A + P207+ P513T, data=dataCostaSur)
+model_SN<-lm(P524A1 ~ P301A + P207+ P513T, data=dataSierraNorte)
+model_SC<-lm(P524A1 ~ P301A + P207+ P513T, data=dataSierraCentro)
+model_SS<-lm(P524A1 ~ P301A + P207+ P513T, data=dataSierraSur)
+model_SE<-lm(P524A1 ~ P301A + P207+ P513T, data=dataSelva)
+model_LM<-lm(P524A1 ~ P301A + P207+ P513T, data=dataLimaMetropolitana)
+
+summary(model_SN)
+
+beta_CN <- model_CN$coefficients[2:9]
+beta_CC <- model_CC$coefficients[2:9]
+beta_CS <- model_CS$coefficients[2:9]
+beta_SN <- model_SN$coefficients[2:9]
+beta_SC <- model_SC$coefficients[2:9]
+beta_SS <- model_SS$coefficients[2:9]
+beta_SE <- model_SE$coefficients[2:9]
+beta_LM <- model_LM$coefficients[2:9]
+
+unidos<-data.frame(beta_CN,
+                   beta_CC,
+                   beta_CS,
+                   beta_SN,
+                   beta_SC,
+                   beta_SS,
+                   beta_SE,
+                   beta_LM)
+rownames(unidos)<-c("PI","PC","SI","SC","SNUI","SNUC","SUC","MoD")
+
+```
+
+```{r Brecha de genero}
+beta_CNM <- model_CN$coefficients["P207Mujer"] 
+beta_CCM <- model_CC$coefficients["P207Mujer"] 
+beta_CSM <- model_CS$coefficients["P207Mujer"] 
+beta_SNM <- model_SN$coefficients["P207Mujer"] 
+beta_SCM <- model_SC$coefficients["P207Mujer"]
+beta_SSM <- model_SS$coefficients["P207Mujer"]
+beta_SEM <- model_SE$coefficients["P207Mujer"]
+beta_LMM <- model_LM$coefficients["P207Mujer"]
+brecha <- rbind(beta_CNM,beta_CCM,beta_CSM,beta_SNM,beta_SCM,beta_SSM,beta_SEM,beta_LMM)
+barplot(brecha)
+colnames(brecha)
+```
+
+```{r}
+modu <- lm(P524A1 ~ P301A + P207+ P513T
+          , data=data1)
+stargazer(modu, type="text")
+```
+
+
+
+for(i in 1:ncol(portfolios)){
+  
+  # linear regression 
+  mod <- lm(portfolios[,i] ~ data$Mkt.RF)
+  
+  # summary
+  mod.s <- summary(mod)
+  
+  # store residuals
+  eps[,i] <- residuals(mod)
+  
+  # extract coefficients
+  alpha <- mod.s$coefficients[1,'Estimate']
+  beta  <- mod.s$coefficients[2,'Estimate']
+  
+  # extract standard errors of the estimates
+  sd.alpha <- mod.s$coefficients[1,'Std. Error']
+  sd.beta  <- mod.s$coefficients[2,'Std. Error']
+  
+  # compute the average excess return
+  excess  <- mean(portfolios[,i])
+  
+  # store everything into the capm dataframe
+  row  <- c(excess, alpha, sd.alpha, beta, sd.beta)
+  capm <- rbind(capm, row)
+  }
