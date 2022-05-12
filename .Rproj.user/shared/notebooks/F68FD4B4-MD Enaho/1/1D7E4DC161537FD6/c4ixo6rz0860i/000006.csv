@@ -1,5 +1,0 @@
-"0","mod1 <- lm(log(P524A1) ~ DOMINIO ,data=data1)
-"
-"2","Error in lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) : 
-  NA/NaN/Inf in 'y'
-"

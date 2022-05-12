@@ -1,2 +1,0 @@
-"0",""
-"0","plot(0:50,dbinom(0:50,50,0.5),col = ""purple"", xlab = """", ylab = """", main = ""Función de probabilidad de una B(50,0.5)"")"

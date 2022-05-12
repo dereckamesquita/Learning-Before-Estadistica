@@ -1,5 +1,0 @@
-"0","dep=c(1.2,3.6,12,36)"
-"0","ind=c(20,35,61,82)"
-"0","#Graficos"
-"0","par(mfrow = c(1, 2))#Juntar dos plots"
-"0","plot(ind,dep, main = ""Escala lineal"")"

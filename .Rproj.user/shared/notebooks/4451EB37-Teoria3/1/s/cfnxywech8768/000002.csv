@@ -1,5 +1,0 @@
-"0","set.seed(1)"
-"0","edades = c(sample(0:99,80,replace = TRUE),rep(35,10),rep(22,5),rep(17,3),50,50)"
-"0","extremos = c(0,20,40,60,80,100)"
-"0","par(mfrow=c(1, 2))"
-"0","histRelCum(edades, extremos)"

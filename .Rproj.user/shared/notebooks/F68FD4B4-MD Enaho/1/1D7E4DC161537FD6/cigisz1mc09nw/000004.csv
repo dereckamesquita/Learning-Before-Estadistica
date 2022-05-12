@@ -1,5 +1,0 @@
-"0",""
-"0","tablasalud <- table(data1$P401HT)"
-"0","tablasalud_ <- prop.table(tablasalud)"
-"0","barplot(tablasalud, xlab='Estrato socioeconómico',"
-"0","        ylab='Frecuencia relativa', las=1)"

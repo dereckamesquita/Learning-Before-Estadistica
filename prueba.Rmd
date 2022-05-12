@@ -1,0 +1,42 @@
+---
+title: "Problem Set"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+Presentado por:
+Dereck Amesquita Pfoccori
+
+
+## Part one
+
+1. What are the major empirical failures of the CAPM? (2 point)
+
+Cuando testeamos de forma empirica el camp, se encuentra que el alfa de Jensen es 
+distinta de cero por lo cual podemos ver que una parte del retorno es explicado por otros factores distintos a la exposicion del riesgo del mercado. Del mismo modo cuando testeamos el beta, si bien este es mayor a cero, podemos ver que no necesariamente cumple la security market line, es decir pueden existir distintos valores de beta para un mismo rendimiento exigido.
+
+2. Explain the Fama-MacBeth two-pass OLS technique. (2 point)
+
+Primero se debera realizar una regresion para cada portafolio a lo largo del tiempo, donde la variable dependiente sera el retorno y las independientes seran el exceso de retorno y otras variables que se quieran testear. De estas regresiones obtendremos los betas de cada factor. El segundo paso sera correr regresiones donde la variable dependiente sera el retorno y las independientes seran los betas obtenidos, esto se hara para cada unidad de tiempo.
+
+3. From the perspective of asset pricing, define what an anomaly is and provide two examples (beside the ones used in Part II). (4 point)
+
+Las anomalias son imperfecciones que se encuentran al tratar de explicar el precio de los activos y determina que una accion se encuentre sobrevalorada o subvaluada.
+
+Momentum: Esta anomalia nos indica que los altos rendimientos pasados influyen en altos rendimientos futuros, esto se da principalmente cuando hay un alto sentimiento del inversionista.
+
+Return on assets: Los inversionistas tienen expectativas mas altas de las firmas mas rentables. Se encuentra empiricamente que las empresas mas rentables tienen un siguiente periodo de mayor rentabilidad anormal, esto se da en casos con incertidumbre de informacion lo que puede llevar a pensar en la existencia de manipulacion.
+
+## Part two
+
+
+
+1. Describe the asset pricing explanation that motivated the study of each anomaly and the null hypothesis on which we would test their validity as predictors in a cross-sectional analysis.
+
+Total Accruals: Nos muestra que las firmas que tengan una mayor cantidad de devengado tiene bajo rendimiento, el devengado se considera como un gasto incurrido pero que todavia no ha tenido salida en el flujo de caja. Esto se puede deber a una sobreestimacion del inversionista.
+
+Asset Growth: Los inversionistas toman una conducta exagerada dejandose llevar por la variacion porcentual positiva de los activos a lo largo del tiempo, lo que les hace creer mayor rendimiento por sus actividades comerciales, al final solo obtienen rendimientos posteriores mas bajos.
+
+Gross profitability: Este ratio explica que a mayor ganancia bruta entre activos las enmpresas se vuelven anormalmente rentables ya que este ratio puede servir para explicar la creacion de valor de una forma mas limpia, ya que no se suma la depreciacion, impuestos, amortizacion y otros agregeados que terminarian ensuciando el estado de resultados.
+
