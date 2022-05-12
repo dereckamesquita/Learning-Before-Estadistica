@@ -4,10 +4,14 @@
 %
 \documentclass[
 ]{article}
+\title{Capitulo 2: Introduccion a la Estadistica Inferencial}
+\author{Dereck Amesquita}
+\date{6/4/2021}
+
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{ifxetex,ifluatex}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+\usepackage{iftex}
+\ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
@@ -99,13 +103,9 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\ifluatex
+\ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-
-\title{Capitulo 2: Introduccion a la Estadistica Inferencial}
-\author{Dereck Amesquita}
-\date{6/4/2021}
 
 \begin{document}
 \maketitle
@@ -475,7 +475,7 @@ trucada con probabilidad de exito de 0.7. Es decir
 \end{Shaded}
 
 \begin{verbatim}
-## Rlab 2.15.1 attached.
+## Rlab 4.0 attached.
 \end{verbatim}
 
 \begin{verbatim}
