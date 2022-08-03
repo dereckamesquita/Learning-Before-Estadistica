@@ -1,0 +1,309 @@
+---
+title: "Limpieza de datos para ENAHO"
+author: "Dereck Amesquita - DAEC Consultoría"
+date: "Julio - 2022"
+output:
+  pdf_document: default
+  html_notebook: default
+  html_document:
+    df_print: paged
+---
+```{r, echo= FALSE, out.width="30%", fig.align='center'}
+knitr::include_graphics("daec.jpeg")
+```
+
+
+El fin de este documento es proporcionar una forma amigable de procesar los datos de la Encuesta Nacional de Hogares (Enaho).
+
+Librerías necesarias :
+```{r, results='hide', message=FALSE}
+library(dplyr)
+library(readxl)
+library(stargazer)
+library(ggplot2)
+```
+
+# Sobre la base de datos
+
+ENAHO maneja actualmente 8 módulos (http://iinei.inei.gob.pe/microdatos/), nos concentraremos en 3 de ellos, "Educación", "Salud" y "Empleo e Ingresos". Desde el portal de microdatos podemos acceder a su ficha técnica y un archivo CSV el cual previamente ya ha sido descargado y alojado en mi cuenta Github (Esto no es necesario, se subió a GitHub con el fin de que cualquier persona pueda ejecutarlo).
+
+## Aclaraciones
+
+R es un software de código abierto, al mismo tiempo este RMarkdown puede ser usado de forma libre.
+
+## Resumen
+Se iniciaría con el cargado de los archivos necesarios para ser cruzados entre sí, generando una sola base de datos, se procederá a limpiar los valores ausentes y filtrar la data. Posteriormente, se le dará la estructura necesaria con la ayuda de la ficha técnica de la encuesta. Finalmente, se crearán unos gráficos simples juntos a modelos de regresión lineal.
+
+# Descarga de Data
+
+```{r Descarga de datos}
+edu <-"https://raw.githubusercontent.com/dereckamesquita/Learning-Before-Estadistica/main/Enaho/Data_Enaho/educacion.csv"
+sal<-"https://raw.githubusercontent.com/dereckamesquita/Learning-Before-Estadistica/main/Enaho/Data_Enaho/salud.csv"
+iyl<-"https://raw.githubusercontent.com/dereckamesquita/Learning-Before-Estadistica/main/Enaho/Data_Enaho/ingresosylaboral.csv"
+dedu <- read.csv(edu)
+dsal<- read.csv(sal)
+diyl<- read.csv(iyl)
+```
+
+## Unión de las bases de datos
+Especificamos que la unión se hace en la columna llamada "MES" la cual contiene un id único. También eliminamos los valores ausentes.
+
+```{r Merge}
+datafull<-full_join(dedu,diyl,by="MES")
+data<-na.omit(datafull)
+```
+
+En este caso, con fines específicos limpiamos la data de acuerdo a lo que necesitamos. Asignamos valores NA y luego omitimos todos los NA (incluyendo los que vienen por defecto en la base)
+```{r}
+datafull1<-full_join(data,dsal,by="MES")
+data1<-na.omit(datafull1)
+data1$P524A1[data1$P524A1=="999999"]=NA
+data1$P301A[data1$P301A=="Básica especial"]=NA
+data1 <- na.omit(data1)
+```
+
+## Exportación data
+Este cruce de datos, finalmente será guardado.
+```{r}
+write.csv(data1, file="data.csv")
+
+```
+## Importación de la nueva data
+
+El fin de hacer esto es para consolidar un único CSV con los cruces correspondientes, una vez hecho esto se podrá comenzar a trabajar desde este punto.
+```{r}
+data1<-read.csv(file ="data.csv", header=T )
+```
+
+# Procesando la data
+El proceso de la data requiere entender los items de cada variable los cuales se encuentra en la ficha técnica que se encuentra en microdatos. Por ejemplo, la P207 recoge la información del sexo donde 1 es Hombre y 2 es Mujer.
+
+## Asignando niveles a las variables
+
+Usaremos un bucle for, que recorra los números 1 y 2 para cambiar los valores por un string denominado según el sexo. Ahora le daremos los niveles necesarios usando "factor”. Usamos "model.matrix" para tener el formato necesario que requieren las regresiones categóricas (opcional).
+
+```{r P207}
+P207 <- c("Hombre","Mujer")
+#Forma 1
+for (a in (1:2)){
+  data1$P207[data1$P207==a]=P207[a]
+}
+
+data1$P207<- factor(data1$P207,levels =P207)
+modelP207<- model.matrix(data1$P524A1~data1$P207+data1$P513T)
+```
+De esto modo ahora hemos modificado la data y P207 ahora tiene la estructura de variable categórica nominal, es decir que no tiene un orden o importancia y que es mutuamente excluyente de otra.
+
+Con la pregunta P300A, sucede lo mismo, la ficha técnica nos informa que 1 significa Quechua, 2 significa Aimara, 3 significa otra lengua nativa, 4 significa Castellano y así sucesivamente.
+
+```{r P300A}
+P300A <- c("Quechua","Aimara","Otra lengua nativa","Castellano",
+          "Portugués","Otra lengua extranjera","No escucha/no habla",
+          "Lengua de señas peruanas","Ashaninka","Awajún",
+          "Shipibo","Shawi","Matsigenka","Achuar")
+
+for (a in (1:15)){
+  data1$P300A[data1$P300A==a]=P300A[a]
+}
+data1$P300A<- factor(data1$P300A,levels =P300A)
+modelP300A<- model.matrix(data1$P524A1~data1$P207+data1$P300A)
+
+```
+Respecto a la pregunta que recoge el nivel de educación sucede lo mismo.
+
+```{r P301A}
+P301A <- c("Sin nivel","Educación inicial","Primaria incompleta",
+           "Primaria completa","Secundaria incompleta","Secundaria completa",
+           "Superior no universitaria Incompleta","Superior no universitaria completa",
+           "Superior universitaria completa","Maestria/Doctorado","Básica especial")
+
+#Forma 1
+for (a in (1:12)){
+  data1$P301A[data1$P301A==a]=P301A[a]
+}
+
+#Limpieza de Educacion Basica y sin Nivel
+data1$P301A[data1$P301A=="Básica especial"]=NA
+data1$P301A[data1$P301A=="Sin nivel"]=NA
+data1 <- na.omit(data1)
+
+#Niveles
+data1$P301A<- factor(data1$P301A,levels =P301A)
+modelP301A<- model.matrix(data1$P524A1~data1$P301A+data1$P207)
+
+#head(modelP301A[,-1])
+
+```
+
+En el caso de salud, tomamos las preguntas que buscan conocer las limitaciones en 6 campos visual, habla, olfato etc. Donde 1 afirma que posee dicha limitación. En este caso lo que haremos será sumar las 6 variables y dejar su resultado en una nueva. Ahora le daremos los niveles necesarios con factor.
+
+```{r P401 forma categorica}
+#Cambiamos todos los 2 por el numero 0.
+data1$P401H1[data1$P401H1==2]=0
+data1$P401H2[data1$P401H2==2]=0
+data1$P401H3[data1$P401H3==2]=0
+data1$P401H4[data1$P401H4==2]=0
+data1$P401H5[data1$P401H5==2]=0
+data1$P401H6[data1$P401H6==2]=0
+#Creamos una columna con el total de los que tienen limitaciones
+
+data1$P401HT <- data1$P401H1+data1$P401H2+data1$P401H3+data1$P401H4+data1$P401H5+data1$P401H6
+
+data1$P401HT <- data1$P401HT+1
+
+#Categorizamos
+
+P401HT <- c("Sano","Una_limitacion","Dos_limitacion",
+            "Tres_limitacion","Cuatro_limitacion")
+
+for (a in (1:5)){
+  data1$P401HT[data1$P401HT==a]=P401HT [a]
+}
+
+data1$P401HT <- factor(data1$P401HT ,levels =P401HT )
+  
+```
+
+Para trabajar el dominio geográfico, repetimos el mismo proceso ayudándonos de la ficha técnica. Para no extender los nombres he nombrado cada dominio con las primeras letras. Como: Costa Norta (CN), Lima Metropolitana (LM), etc.
+
+```{r}
+
+#Renombrando DOMINIO
+names(data1)[names(data1) == 'DOMINIO.x'] <- 'DOMINIO'
+data1$DOMINIO <- as.numeric(data1$DOMINIO)
+Dominios1 <- c("CostaNorte", "CostaCentro", "CostaSur","SierraNorte","SierraCentro","SierraSur","Selva", "LimaMetropolitana")
+
+Dominios <- c("CN", "CC", "CS","SN","SC","SS","SE", "LM")
+#Cambiamos numeros
+for (a in (1:8)){
+  data1$DOMINIO[data1$DOMINIO==a]=Dominios[a]
+}
+
+data1$DOMINIO<- factor(data1$DOMINIO,levels =Dominios)
+```
+# Primeros gráficos
+Creamos un gráfico a partir de la estructura de datos realizada.
+```{r, warning=FALSE}
+data1$P524A1=as.numeric(data1$P524A1)
+ggplot(data1, aes(x=DOMINIO, y=P524A1, color=P301A )) + 
+  geom_point() + theme_light()  + labs(x="Dominio geográfico", y="Ingreso Mensual", colour= "Nivel educativo", title = "Ingreso mensual según dominio geográfico")  + scale_color_brewer(palette="PiYG") + scale_y_continuous(limits = c(0,10000))
+mod1 <- lm(P524A1 ~ DOMINIO ,data=data1)
+
+```
+Del mismo modo podemos crear nuestra primera regresión. Utilizamos Stargazer para darle formato a los resultados.
+```{r}
+stargazer(mod1, type="text")
+
+```
+
+Tambien podemos platear otras relaciónes, en este caso no utilizaremos Stargazer para notar la diferencia.
+```{r}
+mod <- lm(P524A1 ~ P301A
+          , data=data1)
+
+summary(mod)
+
+ggplot(data1, aes(x=P207, y=P524A1, color=P301A)) + 
+  geom_point() + theme_light()  + labs(x="Sexo", y="Ingreso Mensual", colour= "Nivel educativo", title = "Ingreso mensual según sexo")
+
+```
+
+
+
+
+
+\pagebreak
+
+
+
+
+
+```{r}
+hist(data1$P524A1, main="Histograma", xlab  = "Ingreso Mensual")
+
+```
+```{r}
+mod <- lm(P524A1 ~ P301A + P207+ P401H1+ P401H2 + P401H3 + P401H4 + P401H5 + P401H6
+          , data=data1)
+summary(mod)
+
+ggplot(data1, aes(x=P401HT, y=P524A1)) + 
+  geom_point() + theme_light()
+
+tablasalud <- table(data1$P401HT)
+tablasalud_ <- prop.table(tablasalud)
+barplot(tablasalud, xlab='Estrato socioeconómico',
+        ylab='Frecuencia relativa', las=1)
+plot(data1$P401HT,data1$P524A1)
+
+log_sal <- log(data1$P524A1)
+mod <- lm(log(log_sal) ~ data1$P401HT)
+summary(mod)
+```
+## Division por dominio
+
+Dominio Geográfico 
+1. Costa Norte
+2. Costa Centro
+3. Costa Sur
+4. Sierra Norte
+5. Sierra Centro
+6. Sierra Sur
+7. Selva
+8. Lima Metropolitana
+
+
+
+```{r Creacion de subdominios}
+dataCostaNorte <- filter(data1, DOMINIO=="CN")
+dataCostaCentro <- filter(data1, DOMINIO=="CC")
+dataCostaSur <- filter(data1, DOMINIO=="CS")
+dataSierraNorte <- filter(data1, DOMINIO=="SN")
+dataSierraCentro <- filter(data1, DOMINIO=="SC")
+dataSierraSur <- filter(data1, DOMINIO=="SS")
+dataSelva <- filter(data1, DOMINIO=="SE")
+dataLimaMetropolitana <- filter(data1, DOMINIO=="LM")
+
+```
+```{r}
+model_CN<-lm(P524A1 ~ P301A, data=dataCostaNorte)
+model_CC<-lm(P524A1 ~ P301A, data=dataCostaCentro)
+model_LM<-lm(P524A1 ~ P301A, data=dataLimaMetropolitana)
+
+beta_CN <- model_CN$coefficients[2:8]
+beta_CC <- model_CC$coefficients[2:8]
+beta_LM <- model_LM$coefficients[2:8]
+
+unidos<-data.frame(beta_CN,beta_CC,beta_LM)
+
+
+summary(model_CN)
+
+```
+
+for(i in 1:ncol(portfolios)){
+  
+  # linear regression 
+  mod <- lm(portfolios[,i] ~ data$Mkt.RF)
+  
+  # summary
+  mod.s <- summary(mod)
+  
+  # store residuals
+  eps[,i] <- residuals(mod)
+  
+  # extract coefficients
+  alpha <- mod.s$coefficients[1,'Estimate']
+  beta  <- mod.s$coefficients[2,'Estimate']
+  
+  # extract standard errors of the estimates
+  sd.alpha <- mod.s$coefficients[1,'Std. Error']
+  sd.beta  <- mod.s$coefficients[2,'Std. Error']
+  
+  # compute the average excess return
+  excess  <- mean(portfolios[,i])
+  
+  # store everything into the capm dataframe
+  row  <- c(excess, alpha, sd.alpha, beta, sd.beta)
+  capm <- rbind(capm, row)
+  }

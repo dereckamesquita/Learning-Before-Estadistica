@@ -1,0 +1,123 @@
+---
+title: "Capitulo 3: Probabilidad"
+author: "Dereck Amesquita"
+date: "12/5/2022"
+output:
+  html_document: default
+  pdf_document: 
+    keep_tex: yes
+---
+
+# Conceptos Basicos
+
+**Experimento Aleatorio** : Es un experimento, cuya misma acción puede tener diferentes resultados. Ejemplo: Tirar una moneda.
+
+**Suceso elemental** : Son los posibles resultados. Ejemplo: Los sucesos elementales de tirar una moneda, son cara y sello.
+
+**Espacio Muestral** : Es la agrupacion de todos los sucesos elementales. Generalmente se denota por Omega. $\Omega = \{Cara, Sello\}$
+
+Otras definiciones serian:
+
+**Sucesos** : Un subconjunto del espacio muestral. Ejemplo: Sacar cara, o tambien, obtener numeros pares cuando se lanza un dado.
+
+## Operaciones con sucesos
+
+Si tenemos dos sucesos $A,B\subseteq \Omega$, podemos definir:
+
+$\Omega$: *suceso* total o *seguro*.
+$\emptyset$: suceso  *vacío* o *imposible*.
+$A\cup B$: suceso *unión*; el que ocurre si sucede $A$ o $B$.
+$A\cap B$: suceso *intersección*; el que ocurre si sucede $A$ y $B$.
+$A^c$: suceso *complementario*  el que sucede si NO sucede $A$.
+$A- B=A\cap B^c$: suceso *diferencia*, que acontece  si sucede $A$ y NO sucede $B$.
+
+El suceso incompatible es cuando no hay interseccion entre A y B
+
+**Ejemplo**:Supongamos que el sexo se divide entre Mujeres y Hombres. Vamos a definir el espacio muestral, los sucesos elementales y a realizar algunas operaciones entre ellos.
+
+* Estudiantes de esta clase: $\Omega$.
+* Mujeres de esta clase: $A$.
+* Estudiantes que son zurdos $B$.
+
+Algunas operaciones entre los conjuntos:
+
+* $A\cup B$: Est. que son mujeres o que son zurdos.
+* $A\cap B$: Mujeres de esta clase que son zurdas.
+* $A^c$: Hombres de esta clase.
+* $A-B$: Mujeres de la clases que NO son zurdas.
+* $B-A$: Hombres de la clase que son zurdos.
+* ¡Cuidado! No son incompatibles.
+
+# Probabilidad
+Es la posibilidad de ocurrencia de determinado suceso. Se puede entender como una puntuación numerica entre 0 y 1, la cual mide la veromisilitud de que se produzca un evento.
+La visión frecuentista se centra en la frecuencia de ocurrencia de dicho fenemono. Salir a la calle y contar los autos rojos pasar en un minuto. Esto nos puede ayudar a hacer inferencia de los autos rojos que veremos en el siguiente minuto.
+La otra vision es la Bayesiana la cual toma distintas actualizaciones a la probabilidad. Se condiciona la probabilidad a determinado suceso para tener un resultado.
+
+## Definicion estricta
+
+Sea $\Omega$ el espacio muestral de un experimento aleatorio. 
+Supongamos que el número de posibles resultados, por el momento, es finito.
+
+Una probabilidad sobre $\Omega$ es una aplicación $P:\mathcal{P}(\Omega)\to [0,1]$ con las siguientes propiedades:
+
+1. $0\leq P(A)\leq 1$, para todo suceso $A$.
+2. $P(\Omega)=1$.
+3. Si $\{A_1,A_2,\ldots,A_n\}$ son sucesos disjuntos dos a dos, entonces
+
+## Probabilidad Condicionada
+
+**Probabilidad condicionada**: Dados dos sucesos  $A$  y $B$, con $P(A)>0$, la  probabilidad $P(B|A)$ de $B$ condicionado a $A$ es la probabilidad
+
+* de que suceda  $B$ suponiendo que pasa $A$,
+* de que si pasa $A$, entonces suceda $B$,
+* de que un resultado de $A$ también pertenezca a $B$.
+
+$$
+P(B|A)=\frac{P(A\cap B)}{P(A)}.
+$$ 
+
+Hay que distinguir bien entre
+
+* $P(A\cap B)$: probabilidad de $A$ $\color{red}{\text{y}}$ $B$.
+
+*Probabilidad de que sea mujer y  lleve gafas.*
+
+* $P(A|B)$: probabilidad de que $\color{red}{\text{si}}$ pasa $B$, $\color{red}{\text{entonces}}$ pase $A$.
+
+*Probabilidad de que, si es mujer, lleve gafas.*
+
+
+Cuando utilizamos probabilidad condicional  $P(A|B)$ estamos restringiendo el espacio muestral a $B$.
+### Propiedades
+
+Sea $A\subseteq \Omega$ un suceso tal que $P(A)>0$, entonces
+
+$$
+\begin{array}{rccl}
+P(-|A):& \mathcal{P}(\Omega) & \to & [0,1]\\
+&B & \mapsto & P(B|A).
+\end{array}
+$$
+
+satisface las propiedades de las probabilidades, como por ejemplo:
+
+$$
+\begin{array}{l}
+P(B^c|A)=1-P(B|A),\\
+P(B_1\cup B_2|A)=P(B_1|A)+P(B_2|A)-P(B_1\cap B_2|A).
+\end{array}
+$$
+
+
+
+
+
+
+
+
+
+
+
+
+
+

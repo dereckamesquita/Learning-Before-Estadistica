@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.7)  12 MAY 2022 18:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.2.7)  12 MAY 2022 18:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -304,7 +304,8 @@ Package graphics Info: Driver file: pdftex.def on input line 107.
 File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count287
 \l__pdf_internal_box=\box53
-) (./Teoria4.aux)
+)
+No file Teoria4.aux.
 \openout1 = `Teoria4.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 110.
@@ -344,7 +345,6 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 110.
 LaTeX Info: Redefining \pageref on input line 110.
 LaTeX Info: Redefining \nameref on input line 110.
-(./Teoria4.out) (./Teoria4.out)
 \@outlinefile=\write4
 \openout4 = `Teoria4.out'.
 
@@ -426,7 +426,7 @@ LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 1
 (/Users/dereck/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-<Teoria4_files/figure-latex/Grafico-1.pdf, id=100, 469.755pt x 325.215pt>
+<Teoria4_files/figure-latex/Grafico-1.pdf, id=4, 469.755pt x 325.215pt>
 File: Teoria4_files/figure-latex/Grafico-1.pdf Graphic file (type pdf)
 <use Teoria4_files/figure-latex/Grafico-1.pdf>
 Package pdftex.def Info: Teoria4_files/figure-latex/Grafico-1.pdf  used on input line 168.
@@ -434,19 +434,19 @@ Package pdftex.def Info: Teoria4_files/figure-latex/Grafico-1.pdf  used on input
 [1
 
 {/Users/dereck/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2 <./Teoria4_files/figure-latex/Grafico-1.pdf>]
-<Teoria4_files/figure-latex/Graficos en dos escalas-1.pdf, id=127, 469.755pt x 325.215pt>
+<Teoria4_files/figure-latex/Graficos en dos escalas-1.pdf, id=34, 469.755pt x 325.215pt>
 File: Teoria4_files/figure-latex/Graficos en dos escalas-1.pdf Graphic file (type pdf)
 <use Teoria4_files/figure-latex/Graficos en dos escalas-1.pdf>
 Package pdftex.def Info: Teoria4_files/figure-latex/Graficos en dos escalas-1.pdf  used on input line 225.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [3 <./Teoria4_files/figure-latex/Graficos en dos escalas-1.pdf>]
-<Teoria4_files/figure-latex/Regresion exponencial-1.pdf, id=139, 469.755pt x 325.215pt>
+<Teoria4_files/figure-latex/Regresion exponencial-1.pdf, id=47, 469.755pt x 325.215pt>
 File: Teoria4_files/figure-latex/Regresion exponencial-1.pdf Graphic file (type pdf)
 <use Teoria4_files/figure-latex/Regresion exponencial-1.pdf>
 Package pdftex.def Info: Teoria4_files/figure-latex/Regresion exponencial-1.pdf  used on input line 263.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [4 <./Teoria4_files/figure-latex/Regresion exponencial-1.pdf>]
-<Teoria4_files/figure-latex/unnamed-chunk-1-1.pdf, id=151, 469.755pt x 325.215pt>
+<Teoria4_files/figure-latex/unnamed-chunk-1-1.pdf, id=60, 469.755pt x 325.215pt>
 File: Teoria4_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (type pdf)
 <use Teoria4_files/figure-latex/unnamed-chunk-1-1.pdf>
 Package pdftex.def Info: Teoria4_files/figure-latex/unnamed-chunk-1-1.pdf  used on input line 281.
@@ -460,7 +460,7 @@ Package hyperref Warning: Difference (2) between bookmark levels is greater
 (hyperref)                than one, level fixed on input line 354.
 
 [6] [7] [8]
-<Teoria4_files/figure-latex/Primeros experimentos-1.pdf, id=197, 469.755pt x 325.215pt>
+<Teoria4_files/figure-latex/Primeros experimentos-1.pdf, id=118, 469.755pt x 325.215pt>
 File: Teoria4_files/figure-latex/Primeros experimentos-1.pdf Graphic file (type pdf)
 <use Teoria4_files/figure-latex/Primeros experimentos-1.pdf>
 Package pdftex.def Info: Teoria4_files/figure-latex/Primeros experimentos-1.pdf  used on input line 566.
@@ -476,31 +476,31 @@ Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
 (amsmath)                 on input line 578.
 
-<Teoria4_files/figure-latex/Ejemplos de distribucion binomial-1.pdf, id=202, 469.755pt x 325.215pt>
+<Teoria4_files/figure-latex/Ejemplos de distribucion binomial-1.pdf, id=123, 469.755pt x 325.215pt>
 File: Teoria4_files/figure-latex/Ejemplos de distribucion binomial-1.pdf Graphic file (type pdf)
 <use Teoria4_files/figure-latex/Ejemplos de distribucion binomial-1.pdf>
 Package pdftex.def Info: Teoria4_files/figure-latex/Ejemplos de distribucion binomial-1.pdf  used on input line 602.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [10 <./Teoria4_files/figure-latex/Primeros experimentos-1.pdf>]
-<Teoria4_files/figure-latex/Ejemplos de distribucion binomial-2.pdf, id=214, 469.755pt x 325.215pt>
+<Teoria4_files/figure-latex/Ejemplos de distribucion binomial-2.pdf, id=136, 469.755pt x 325.215pt>
 File: Teoria4_files/figure-latex/Ejemplos de distribucion binomial-2.pdf Graphic file (type pdf)
 <use Teoria4_files/figure-latex/Ejemplos de distribucion binomial-2.pdf>
 Package pdftex.def Info: Teoria4_files/figure-latex/Ejemplos de distribucion binomial-2.pdf  used on input line 610.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [11 <./Teoria4_files/figure-latex/Ejemplos de distribucion binomial-1.pdf>]
-<Teoria4_files/figure-latex/unnamed-chunk-2-1.pdf, id=225, 469.755pt x 325.215pt>
+<Teoria4_files/figure-latex/unnamed-chunk-2-1.pdf, id=148, 469.755pt x 325.215pt>
 File: Teoria4_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type pdf)
 <use Teoria4_files/figure-latex/unnamed-chunk-2-1.pdf>
 Package pdftex.def Info: Teoria4_files/figure-latex/unnamed-chunk-2-1.pdf  used on input line 628.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [12 <./Teoria4_files/figure-latex/Ejemplos de distribucion binomial-2.pdf>]
-<Teoria4_files/figure-latex/unnamed-chunk-2-2.pdf, id=237, 469.755pt x 325.215pt>
+<Teoria4_files/figure-latex/unnamed-chunk-2-2.pdf, id=161, 469.755pt x 325.215pt>
 File: Teoria4_files/figure-latex/unnamed-chunk-2-2.pdf Graphic file (type pdf)
 <use Teoria4_files/figure-latex/unnamed-chunk-2-2.pdf>
 Package pdftex.def Info: Teoria4_files/figure-latex/unnamed-chunk-2-2.pdf  used on input line 660.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [13 <./Teoria4_files/figure-latex/unnamed-chunk-2-1.pdf>]
-<Teoria4_files/figure-latex/unnamed-chunk-2-3.pdf, id=248, 469.755pt x 325.215pt>
+<Teoria4_files/figure-latex/unnamed-chunk-2-3.pdf, id=172, 469.755pt x 325.215pt>
 File: Teoria4_files/figure-latex/unnamed-chunk-2-3.pdf Graphic file (type pdf)
 <use Teoria4_files/figure-latex/unnamed-chunk-2-3.pdf>
 Package pdftex.def Info: Teoria4_files/figure-latex/unnamed-chunk-2-3.pdf  used on input line 678.
@@ -511,18 +511,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 678--680
  []
 
 [14 <./Teoria4_files/figure-latex/unnamed-chunk-2-2.pdf>] [15 <./Teoria4_files/figure-latex/unnamed-chunk-2-3.pdf>]
-<Teoria4_files/figure-latex/Distribucion Geometrica-1.pdf, id=270, 469.755pt x 325.215pt>
+<Teoria4_files/figure-latex/Distribucion Geometrica-1.pdf, id=195, 469.755pt x 325.215pt>
 File: Teoria4_files/figure-latex/Distribucion Geometrica-1.pdf Graphic file (type pdf)
 <use Teoria4_files/figure-latex/Distribucion Geometrica-1.pdf>
 Package pdftex.def Info: Teoria4_files/figure-latex/Distribucion Geometrica-1.pdf  used on input line 726.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [16 <./Teoria4_files/figure-latex/Distribucion Geometrica-1.pdf>]
-<Teoria4_files/figure-latex/Distribucion de Poisson-1.pdf, id=282, 469.755pt x 325.215pt>
+<Teoria4_files/figure-latex/Distribucion de Poisson-1.pdf, id=208, 469.755pt x 325.215pt>
 File: Teoria4_files/figure-latex/Distribucion de Poisson-1.pdf Graphic file (type pdf)
 <use Teoria4_files/figure-latex/Distribucion de Poisson-1.pdf>
 Package pdftex.def Info: Teoria4_files/figure-latex/Distribucion de Poisson-1.pdf  used on input line 769.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Teoria4_files/figure-latex/Distribucion de Poisson-2.pdf, id=283, 469.755pt x 325.215pt>
+<Teoria4_files/figure-latex/Distribucion de Poisson-2.pdf, id=209, 469.755pt x 325.215pt>
 File: Teoria4_files/figure-latex/Distribucion de Poisson-2.pdf Graphic file (type pdf)
 <use Teoria4_files/figure-latex/Distribucion de Poisson-2.pdf>
 Package pdftex.def Info: Teoria4_files/figure-latex/Distribucion de Poisson-2.pdf  used on input line 777.
@@ -533,13 +533,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 777--779
  []
 
 [17 <./Teoria4_files/figure-latex/Distribucion de Poisson-1.pdf>]
-<Teoria4_files/figure-latex/Ejemplo de Poisson-1.pdf, id=295, 469.755pt x 325.215pt>
+<Teoria4_files/figure-latex/Ejemplo de Poisson-1.pdf, id=220, 469.755pt x 325.215pt>
 File: Teoria4_files/figure-latex/Ejemplo de Poisson-1.pdf Graphic file (type pdf)
 <use Teoria4_files/figure-latex/Ejemplo de Poisson-1.pdf>
 Package pdftex.def Info: Teoria4_files/figure-latex/Ejemplo de Poisson-1.pdf  used on input line 805.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 [18 <./Teoria4_files/figure-latex/Distribucion de Poisson-2.pdf>]
-<Teoria4_files/figure-latex/Ejemplo de Poisson-2.pdf, id=306, 469.755pt x 325.215pt>
+<Teoria4_files/figure-latex/Ejemplo de Poisson-2.pdf, id=231, 469.755pt x 325.215pt>
 File: Teoria4_files/figure-latex/Ejemplo de Poisson-2.pdf Graphic file (type pdf)
 <use Teoria4_files/figure-latex/Ejemplo de Poisson-2.pdf>
 Package pdftex.def Info: Teoria4_files/figure-latex/Ejemplo de Poisson-2.pdf  used on input line 813.
@@ -556,10 +556,10 @@ Type  H <return>  for immediate help.
 l.875 ....wikipedia.org/wiki/Distribución\_χ²)}
                                                    
 Here is how much of TeX's memory you used:
- 11247 strings out of 480238
- 179811 string characters out of 5894845
- 463638 words of memory out of 5000000
- 28929 multiletter control sequences out of 15000+600000
+ 11192 strings out of 480238
+ 178817 string characters out of 5894845
+ 462239 words of memory out of 5000000
+ 28880 multiletter control sequences out of 15000+600000
  521827 words of font info for 72 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  60i,9n,63p,617b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
