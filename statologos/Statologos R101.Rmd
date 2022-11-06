@@ -1,0 +1,344 @@
+---
+title: " Introducción a R : R101"
+author: "Dereck Amesquita - Statologos"
+date: "Noviembre - 2022"
+output:
+  pdf_document: default
+  html_notebook: default
+  html_document:
+    df_print: paged
+---
+```{r, echo= FALSE, out.width="30%", fig.align='center'}
+knitr::include_graphics("estatologos.png")
+```
+
+
+
+
+## Resumen
+
+El siguiente texto tiene por objetivo mostrar una guía que permita al lector entender como usar R
+
+## Temas
+
+- Gráficos de precios
+- Retornos de portafolio
+- Retornos mediante matrices
+- Time-Weighted Rate of Return
+- Money-Weighted Rate of Return
+
+
+Primero instalamos las librerias necesarias en este caso la que me llamó más la atención fue la librería quantmod que nos facilitará al momento de hacer el siguiente trabajo. Esta librería nos ayuda bastante a la vosualizacion de datos. Principamente usada para análisis cuantitativo
+
+
+Librerías necesarias :
+```{r message=FALSE, warning=FALSE, results='hide'}
+data(package=.packages(all.available = TRUE))
+```
+
+
+### Cargando data
+
+```{r}
+df = mtcars
+```
+
+
+```{r Primeros Plots, eval=FALSE, include=FALSE}
+x=1:10
+y=2*x+5
+
+plot(log(x),log(y), type="p")
+plot(x,y, type="l")
+plot(x,y, type="b")
+plot(x,y, type="c")
+plot(x,y, type="o")
+plot(x,y, type="h")
+plot(x,y, type="s")
+plot(x,y, type="S")
+```
+
+```{r Explorar los datos}
+
+str(df)
+class(mtcars$vs)
+
+?mtcars
+
+```
+
+```{r transformando variables}
+df$vs= as.logical(df$vs)
+str(df)
+
+```
+
+```{r}
+summary(mtcars)
+wt=(mtcars$wt*1000/2)
+mtcarsnew <- transform(mtcars,wt=mtcars$wt*1000/2)
+summary(mtcarsnew)
+
+```
+
+
+# Vectores
+
+```{r}
+tiempox <-c(10,5,5,4,3)
+tiempoy <-c(10,20,5,4,3)
+tiempototal<-c (tiempox+tiempoy)
+
+```
+```{r}
+summary(tiempox)
+tiempox
+
+```
+```{r}
+
+tiempodias <-c("lunes","martes","miercoles","jueves","viernes")
+sumatiempo<-sum(tiempototal)
+sumatiempo
+```
+
+Una matriz tiene un solo tipo de datos. Un data frame puede tener datos logicos o numericos
+
+```{r}
+tiempo_matriz<-matrix(c(tiempox,tiempoy),
+                      nrow=2,byrow=TRUE)
+
+tiempo<-c("tiempoX","tiempoY")
+colnames(tiempo_matriz)<-tiempodias
+rownames(tiempo_matriz)<-tiempo
+tiempo_matriz
+```
+
+
+
+```{r}
+alumnos <-c("Ramiro", "Juan","Roberto")
+Cursos <-c("matematica","comunicacion","ambiente")
+notas1<-c(45,18,70)
+notas2<-c(15,58,90)
+notas3<-c(16,38,60)
+notas<-matrix(c(notas1,notas2,notas3), nrow =3,byrow=TRUE )
+rownames(notas)<-alumnos
+colnames(notas)<-Cursos
+notas
+```
+
+
+```{r}
+#hallar la suma de una columna
+colSums(notas)
+#hallar la media de una columna
+colMeans(notas)
+#agregar fila a la matriz
+fnotas <- rbind(notas,c(40,50.40))
+fnotas
+#Conocer cualquier valor de la matriz
+fnotas[3:2] #desde la tercera posicion hasta la segunda
+fnotas[8:10]
+fnotas[1,2] #la ubicacion fila 1 columna 2
+```
+
+
+Simbolos en R
+== igualdad
+!= No igual
+< menor
+<= menor igual
+| o
+! no
+%in% que esta dentro de un dataset"
+
+# Filtrando segun cierta condicion en una variable
+```{r}
+df[df$cyl<6,]
+
+```
+
+
+```{r}
+data = "https://raw.githubusercontent.com/dereckamesquita/Introduccion-a-R/main/orangeec.csv"
+orangeec <- read.csv(data)
+
+```
+```{r}
+neworange<- subset(orangeec, 'Internet penetration % population' >80 & 'Education invest % GDP'>=4.5)
+neworange
+```
+
+```{r}
+neworange<- subset(orangeec, 'Internet penetration % population' >80 & 'Education invest % GDP'>=4.5, select='Creat.Ind...GDP')
+neworange
+```
+
+
+
+## Cambiar nombres de columnas
+
+```{r}
+  #Le damos la ubicacion con numero
+colnames(orangeec)[2] <- 'd'  
+orangeec
+#cambiar el nombre a una columna segunda forma
+#Le damos la ubicacion entrando otra vez a la matriz
+
+colnames(orangeec)[colnames(orangeec) == "d"] = "z"
+orangeec
+```
+
+Cambiar el nombre a una columna primera forma
+```{r}
+#regresamos a nuestro dataset
+orangeec <- read.csv(data)
+```
+
+
+
+Mostrar primeros 6 elementos del dataset
+```{r}
+head(mtcars)
+head(orangeec)
+```
+
+
+
+Mostrar ultimos 6 elementos del dataset
+```{r}
+tail(mtcars)
+tail(orangeec)
+```
+
+
+# EDA Exploratory Data Analysis
+
+
+```{r}
+data = "https://raw.githubusercontent.com/dereckamesquita/Introduccion-a-R/main/orangeec.csv"
+orangeec <- read.csv(data)
+data1 = 'https://raw.githubusercontent.com/dereckamesquita/Introduccion-a-R/main/mtcars.csv'
+mtcars = read.csv(data1)
+```
+
+```{r}
+plot(mtcars$mpg ~mtcars$cyl, xlab="cilindos",ylab = "millas", 
+     main="Relacion de cilindos y millas")
+plot(mtcars$mpg ~mtcars$hp, xlab="cilindos",ylab = "caballos", 
+     main="Relacion de cilindos y caballos")
+
+plot(orangeec$Unemployment~orangeec$'Education.invest...GDP',
+     xlab="inversion en educacion", ylab = "desempleo", main="relacion entre inversion y desempleo")
+
+plot(orangeec$'GDP.PC'~orangeec$'Creat.Ind...GDP',
+     xlab="aporte economia naranja", ylab = "PIB", main="Relacion entre economia naranja y PIB")
+
+```
+
+
+```{r}
+hist(mtcars$hp, xlab="caballos de fuerza", 
+     breaks = seq(50,350,10), #breaks son los puntos de corte # seq define numeros desde el 50 al 130 de 10 en 10
+     main="Carros segun caballos de fuerza")
+```
+
+```{r}
+library(ggplot2)
+#histrograma basico con ggplot
+ggplot(data=mtcars, 
+       mapping=aes(x=hp))+
+  geom_histogram(bins=10)+
+  labs(x="Caballos de fuerza", y="frecuencia",
+       tittle="caballos de fuerza en carros seleccionados")+
+  theme(legend.position = "none")+
+  theme(panel.background = element_blank(),panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
+```
+
+
+```{r}
+ggplot(data = mtcars,
+       mapping = aes(x = hp)) + 
+  geom_histogram(aes(y =..density..),
+                 bins = 9,
+                 position = 'identity') +
+  stat_function(fun = dnorm, 
+                args = list(mean = mean(mtcars$hp), 
+                            sd = sd(mtcars$hp)))
+```
+
+```{r}
+ggplot(data=mtcars,
+       mapping = aes(hp,mpg))+
+  geom_point()+
+  labs(x="Caballos de fuerza", y="Millas por galon", 
+       title ="Relacion caballos de fuerza y millas" )+
+  theme(legend.position = "none")+
+  theme(panel.background = element_blank(),panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
+```
+
+
+
+```{r}
+ggplot(data=mtcars,
+       mapping = aes(hp, qsec))+
+  geom_point(aes(color=am, size=cyl))+
+  labs(s="Caballos de fuerza", y="Tiempo en 1/4 milla", 
+       title ="Caballos velocidad segun cilindraje y tipo de caja" )+
+  theme(legend.position = "none")+
+  theme(panel.background = element_blank(),panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
+```
+
+# Motivación 
+
+```{r message=FALSE, warning=FALSE, results='hide'}
+library(tidyverse)   
+library(WDI)       
+library(ggplot2)
+library(dplyr)
+```
+
+## Esperanza de vida en Sudamérica
+
+Especificamos los paises.
+```{r}
+data = WDI(
+  country = c("PER","CHL","COL","BRA", "ARG","BOL","ECU","COL"),
+  indicator = c("SP.DYN.LE00.IN"),
+  start = 1980,
+  end = 2025,
+  language = "es" #Labels en Español
+)
+```
+
+Ahora repetimos el proceso para omitir datos y creamos el ggplot. Este es muy similar a los anteriores.
+```{r}
+data = na.omit(data)
+
+grafico4 <- ggplot(data, aes(x=year,y=SP.DYN.LE00.IN, color=country)) + geom_line() + 
+  labs(x="Años", y = "Esperanza de vida en años", 
+       title = "Esperanza de vida por países",
+       subtitle = "(De 1980 a 2020)")
+grafico4 + ubi + tit
+
+```
+
+
+```{r}
+esperanza = data %>% 
+  group_by(country) %>% 
+  summarise(promvida = mean(SP.DYN.LE00.IN))
+esperanza
+
+grafico5 = ggplot(esperanza, aes(x=country, y=promvida)) +
+  geom_col(fill='#213402')  +
+  labs(x='País',y="Esperanza de vida promedio", title = 'Promedio de esperanza de vida')
+grafico5+ubi+tit
+```
+
+
+
