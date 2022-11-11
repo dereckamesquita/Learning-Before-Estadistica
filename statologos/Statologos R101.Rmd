@@ -3,10 +3,10 @@ title: " Introducción a R : R101"
 author: "Dereck Amesquita - Statologos"
 date: "Noviembre - 2022"
 output:
-  pdf_document: default
-  html_notebook: default
   html_document:
     df_print: paged
+  html_notebook: default
+  pdf_document: default
 ---
 ```{r, echo= FALSE, out.width="30%", fig.align='center'}
 knitr::include_graphics("estatologos.png")
@@ -17,18 +17,11 @@ knitr::include_graphics("estatologos.png")
 
 ## Resumen
 
-El siguiente texto tiene por objetivo mostrar una guía que permita al lector entender como usar R
-
-## Temas
-
-- Gráficos de precios
-- Retornos de portafolio
-- Retornos mediante matrices
-- Time-Weighted Rate of Return
-- Money-Weighted Rate of Return
+El siguiente texto tiene por objetivo mostrar una guía que permita al lector entender como usar R.
 
 
-Primero instalamos las librerias necesarias en este caso la que me llamó más la atención fue la librería quantmod que nos facilitará al momento de hacer el siguiente trabajo. Esta librería nos ayuda bastante a la vosualizacion de datos. Principamente usada para análisis cuantitativo
+
+Primero instalamos las librerias necesarias en este caso la que me llamó más la atención fue la librería quantmod que nos facilitará al momento de hacer el siguiente trabajo. Esta librería nos ayuda bastante a la vosualizacion de datos. Principamente usada para análisis cuantitativo. 
 
 
 Librerías necesarias :
@@ -41,14 +34,18 @@ data(package=.packages(all.available = TRUE))
 
 ```{r}
 df = mtcars
+
 ```
 
 
-```{r Primeros Plots, eval=FALSE, include=FALSE}
+
+
+
+```{r Primeros Plots}
 x=1:10
 y=2*x+5
 
-plot(log(x),log(y), type="p")
+plot(x,y, type="p")
 plot(x,y, type="l")
 plot(x,y, type="b")
 plot(x,y, type="c")
@@ -57,6 +54,7 @@ plot(x,y, type="h")
 plot(x,y, type="s")
 plot(x,y, type="S")
 ```
+
 
 ```{r Explorar los datos}
 
@@ -74,7 +72,7 @@ str(df)
 ```
 
 ```{r}
-summary(mtcars)
+summary(df)
 wt=(mtcars$wt*1000/2)
 mtcarsnew <- transform(mtcars,wt=mtcars$wt*1000/2)
 summary(mtcarsnew)
@@ -85,30 +83,28 @@ summary(mtcarsnew)
 # Vectores
 
 ```{r}
-tiempox <-c(10,5,5,4,3)
+tiempox <-c(1,35,5,4,3)
 tiempoy <-c(10,20,5,4,3)
-tiempototal<-c (tiempox+tiempoy)
-
+tiempototal<-c(tiempox+tiempoy)
+tiempototal
 ```
 ```{r}
 summary(tiempox)
-tiempox
-
 ```
 ```{r}
 
-tiempodias <-c("lunes","martes","miercoles","jueves","viernes")
-sumatiempo<-sum(tiempototal)
+sumatiempo = sum(tiempototal)
 sumatiempo
 ```
 
-Una matriz tiene un solo tipo de datos. Un data frame puede tener datos logicos o numericos
+Una matriz tiene un solo tipo de datos. Un data frame puede tener datos logicos o numericos, enteros.
 
 ```{r}
-tiempo_matriz<-matrix(c(tiempox,tiempoy),
+tiempo_matriz <-matrix(c(tiempox,tiempoy),
                       nrow=2,byrow=TRUE)
-
+tiempo_matriz
 tiempo<-c("tiempoX","tiempoY")
+tiempodias = c('lunes','martes','miercoles','jueves','viernes')
 colnames(tiempo_matriz)<-tiempodias
 rownames(tiempo_matriz)<-tiempo
 tiempo_matriz
@@ -122,25 +118,31 @@ Cursos <-c("matematica","comunicacion","ambiente")
 notas1<-c(45,18,70)
 notas2<-c(15,58,90)
 notas3<-c(16,38,60)
-notas<-matrix(c(notas1,notas2,notas3), nrow =3,byrow=TRUE )
-rownames(notas)<-alumnos
-colnames(notas)<-Cursos
-notas
+notasnuevo<-matrix(c(notas1,notas2,notas3), nrow =3,byrow=TRUE )
+rownames(notasnuevo)<-alumnos
+colnames(notasnuevo)<-Cursos
+notasnuevo
 ```
 
 
 ```{r}
 #hallar la suma de una columna
-colSums(notas)
+colSums(notasnuevo)
 #hallar la media de una columna
-colMeans(notas)
+colMeans(notasnuevo)
 #agregar fila a la matriz
-fnotas <- rbind(notas,c(40,50.40))
+fnotas <- rbind(notasnuevo,c(40,50,40))
 fnotas
+rownames(fnotas)<- c("Ramiro", "Juan","Roberto", 'Juana')
+fnotas
+
+```
+```{r}
 #Conocer cualquier valor de la matriz
 fnotas[3:2] #desde la tercera posicion hasta la segunda
 fnotas[8:10]
 fnotas[1,2] #la ubicacion fila 1 columna 2
+fnotas[4,2] #la ubicacion fila 1 columna 2
 ```
 
 
@@ -155,7 +157,7 @@ Simbolos en R
 
 # Filtrando segun cierta condicion en una variable
 ```{r}
-df[df$cyl<6,]
+df[df$disp<100,]
 
 ```
 
@@ -166,7 +168,7 @@ orangeec <- read.csv(data)
 
 ```
 ```{r}
-neworange<- subset(orangeec, 'Internet penetration % population' >80 & 'Education invest % GDP'>=4.5)
+neworange<- subset(orangeec, 'Internet.penetration...population' >80 & 'Education.invest...GDP'>=7)
 neworange
 ```
 
@@ -185,6 +187,8 @@ colnames(orangeec)[2] <- 'd'
 orangeec
 #cambiar el nombre a una columna segunda forma
 #Le damos la ubicacion entrando otra vez a la matriz
+
+
 
 colnames(orangeec)[colnames(orangeec) == "d"] = "z"
 orangeec
@@ -224,9 +228,14 @@ mtcars = read.csv(data1)
 ```
 
 ```{r}
-plot(mtcars$mpg ~mtcars$cyl, xlab="cilindos",ylab = "millas", 
-     main="Relacion de cilindos y millas")
-plot(mtcars$mpg ~mtcars$hp, xlab="cilindos",ylab = "caballos", 
+plot(mtcars$cyl ~mtcars$hp, xlab="Caballos",ylab = "Cilindros", 
+     main="Relacion de cilindos y millas") # X - Y
+
+plot(mtcars$hp ~mtcars$cyl, xlab="Cilindros",ylab = "Caballos", 
+     main="Relacion de cilindos y millas") # X - Y
+
+
+plot(mtcars$mpg ~mtcars$hp, xlab="Millas por galon",ylab = "caballos", 
      main="Relacion de cilindos y caballos")
 
 plot(orangeec$Unemployment~orangeec$'Education.invest...GDP',
@@ -240,7 +249,7 @@ plot(orangeec$'GDP.PC'~orangeec$'Creat.Ind...GDP',
 
 ```{r}
 hist(mtcars$hp, xlab="caballos de fuerza", 
-     breaks = seq(50,350,10), #breaks son los puntos de corte # seq define numeros desde el 50 al 130 de 10 en 10
+     breaks = seq(50,350,10), #breaks son los puntos de corte # seq define numeros desde el 50 al 350 de 10 en 10
      main="Carros segun caballos de fuerza")
 ```
 
@@ -251,7 +260,7 @@ ggplot(data=mtcars,
        mapping=aes(x=hp))+
   geom_histogram(bins=10)+
   labs(x="Caballos de fuerza", y="frecuencia",
-       tittle="caballos de fuerza en carros seleccionados")+
+       title="caballos de fuerza en carros seleccionados")+
   theme(legend.position = "none")+
   theme(panel.background = element_blank(),panel.grid.major = element_blank(),
         panel.grid.minor = element_blank())
@@ -280,7 +289,17 @@ ggplot(data=mtcars,
         panel.grid.minor = element_blank())
 ```
 
-
+```{r}
+ggplot(data=orangeec,
+       mapping = aes(Unemployment,Education.invest...GDP))+
+  geom_point()+
+  geom_smooth(method = "lm")+
+  labs(x="Desempleo", y="Inversión", 
+       title ="Relacion entre desempleo e inversión" )+
+  theme(legend.position = "none")+
+  theme(panel.background = element_blank(),panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
+```
 
 ```{r}
 ggplot(data=mtcars,
@@ -295,7 +314,7 @@ ggplot(data=mtcars,
 
 # Motivación 
 
-```{r message=FALSE, warning=FALSE, results='hide'}
+```{r }
 library(tidyverse)   
 library(WDI)       
 library(ggplot2)
@@ -307,7 +326,7 @@ library(dplyr)
 Especificamos los paises.
 ```{r}
 data = WDI(
-  country = c("PER","CHL","COL","BRA", "ARG","BOL","ECU","COL"),
+  country = c("PER","CHL","COL","BRA", "ARG","BOL","ECU","COL" ),
   indicator = c("SP.DYN.LE00.IN"),
   start = 1980,
   end = 2025,
@@ -316,19 +335,19 @@ data = WDI(
 ```
 
 Ahora repetimos el proceso para omitir datos y creamos el ggplot. Este es muy similar a los anteriores.
-```{r}
+```{r }
 data = na.omit(data)
 
 grafico4 <- ggplot(data, aes(x=year,y=SP.DYN.LE00.IN, color=country)) + geom_line() + 
   labs(x="Años", y = "Esperanza de vida en años", 
        title = "Esperanza de vida por países",
        subtitle = "(De 1980 a 2020)")
-grafico4 + ubi + tit
+grafico4
 
 ```
 
 
-```{r}
+```{r }
 esperanza = data %>% 
   group_by(country) %>% 
   summarise(promvida = mean(SP.DYN.LE00.IN))
@@ -337,7 +356,7 @@ esperanza
 grafico5 = ggplot(esperanza, aes(x=country, y=promvida)) +
   geom_col(fill='#213402')  +
   labs(x='País',y="Esperanza de vida promedio", title = 'Promedio de esperanza de vida')
-grafico5+ubi+tit
+grafico5
 ```
 
 
